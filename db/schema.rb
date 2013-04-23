@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130421150746) do
+ActiveRecord::Schema.define(:version => 20130423015501) do
 
   create_table "admins", :force => true do |t|
     t.string   "adminname"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(:version => 20130421150746) do
     t.string   "level"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "catalogs", :force => true do |t|
+    t.integer  "parent_id",  :default => 0
+    t.integer  "sortrank",   :default => 0
+    t.string   "name"
+    t.string   "cdir"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "kindeditor_assets", :force => true do |t|
@@ -37,6 +46,30 @@ ActiveRecord::Schema.define(:version => 20130421150746) do
     t.string   "log_exception"
     t.string   "log_remote_ip"
     t.datetime "created_at"
+  end
+
+  create_table "topic_addons", :force => true do |t|
+    t.integer  "topic_id"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "topics", :force => true do |t|
+    t.integer  "catalog_id"
+    t.string   "title"
+    t.string   "writer"
+    t.string   "source"
+    t.string   "litpic"
+    t.integer  "hits",        :default => 0
+    t.integer  "goodpost",    :default => 0
+    t.integer  "badpost",     :default => 0
+    t.integer  "notpost",     :default => 0
+    t.string   "keywords"
+    t.string   "description"
+    t.integer  "is_trash",    :default => 0
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
 end

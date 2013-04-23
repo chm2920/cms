@@ -20,7 +20,3 @@ $('#navtree li a').click(function(){
 	$(this).addClass('selected');
 	$('#navNote').html($(this).attr('title'));
 });
-
-$('#logo a').click(function(){
-	$('#navNote').html('后台管理');
-});

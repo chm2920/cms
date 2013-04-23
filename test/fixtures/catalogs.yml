@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  parent_id: 1
+  sortrank: 1
+  name: MyString
+  cdir: 
+
+two:
+  parent_id: 1
+  sortrank: 1
+  name: MyString
+  cdir: 

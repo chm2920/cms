@@ -1,0 +1,48 @@
+	<tbody>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<% if @pcatalog %>
+		<tr>
+			<td class="data_label">上一级分类：</td>
+			<td class="data_ipt">
+				<select name="catalog[parent_id]">
+				<%
+					@catalogs.each do |catalog|
+				%>
+					<option value="<%= catalog.id %>"<% if catalog.id == @pcatalog.id %> selected<% end %>><%= catalog.name %></option>
+				<%
+						catalog.sub_catalogs.each do |sub_catalog|
+				%>
+					<option value="<%= sub_catalog.id %>">&nbsp;&nbsp;|--<%= sub_catalog.name %></option>
+				<%
+						end
+				%>	
+				<% 
+					end 
+				%>
+			</td>
+		</tr>
+		<% end %>
+		<tr>
+			<td class="data_label">分类名称：</td>
+			<td class="data_ipt">
+				<%= f.text_field :name %>
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">路径：</td>
+			<td class="data_ipt">
+				<%= f.text_field :cdir %>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="data_sbt">
+				<input type="submit" name="submit" value="提交" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+	</tbody>

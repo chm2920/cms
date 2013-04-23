@@ -9,37 +9,5 @@
 </head>
 <body>
 <%= yield %>
-<script>
-$('.checker').click(function(e){
-	e.stopPropagation();
-});
-$('.stdtable td').click(function(e){
-	if(e.target.tagName != 'A'){
-		e.preventDefault();
-		e.stopPropagation();
-		var _c = $(this).parent().find('.checker');
-		_c.attr('checked', !!!$(_c).attr('checked'));
-	}
-});
-$('#selectAll').click(function(e){
-	e.preventDefault();
-	e.stopPropagation();
-	$('.checker').attr('checked', true);
-});
-$('#selectOther').click(function(e){
-	e.preventDefault();
-	e.stopPropagation();
-	$('.checker').each(function(index, elem){
-		$(elem).attr('checked', !$(elem).attr('checked'));
-	});
-});
-$('#delete_all').click(function(e){
-	e.stopPropagation();
-	if($('input:checked').length == 0){
-		alert("请选择批量处理的ID!");
-		return false;
-	}
-});
-</script>
 </body>
 </html>

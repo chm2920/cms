@@ -59,8 +59,6 @@ body{background:#FEFEFE;}
 .navtree ul li a:hover, .navtree ul li a.selected{background:#E8EAEB;}
 
 .frame-main-con{left:201px;right:0;margin-left:1px;background:#FFF;}
-.frame-main-con-nav{padding:20px 0 20px 40px;height:20px;line-height:20px;border-bottom:1px solid #DDD;font-size:14px;}
-.frame-main-con-nav a{margin:0 8px;font-size:14px;font-weight:normal;color:#333;}
-.frame-main-con-body{position:absolute;top:62px;bottom:0;left:0;right:0;z-index:1;overflow:auto;}
+.frame-main-con-body{position:absolute;top:2px;bottom:0;left:0;right:0;z-index:1;overflow:auto;}
 
 

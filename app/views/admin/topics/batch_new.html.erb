@@ -1,0 +1,32 @@
+<%= form_tag "/admin/catalogs/batch_create" do |f| %>
+<table class="stdtable edtable">
+	<colgroup>
+		<col style="width: 20%">
+		<col style="width: 20%">
+		<col style="width: 60%">
+	</colgroup>
+	<thead>
+		<tr>
+			<th>排序</th>
+			<th>顶级分类名称</th>
+			<th>子分类(用“分类1,分类2...”表示多个分类)</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% 1.upto 5 do |i| %>
+		<tr>
+			<td><%= text_field "catalog[#{i}]", :sortrank, :style => "width:120px", :value => i %></td>
+			<td><%= text_field "catalog[#{i}]", :name, :style => "width:120px" %></td>
+			<td><%= text_field "catalog[#{i}]", :children, :style => "width:280px;text-align:left;" %></td>
+		</tr>
+		<% end %>
+	</tbody>
+	<tfoot>		
+		<tr>
+			<td class="data_sbt" colspan="3">
+				<input type="submit" name="submit" value="保存" />
+			</td>
+		</tr>
+	</tfoot>
+</table>
+<% end %>

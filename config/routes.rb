@@ -18,9 +18,16 @@ Cms::Application.routes.draw do
   match "admin_logout" => "account#logout"
   
   namespace :admin do  
-    post "mo_brands/index"
-    resources :mo_brands
+    get "catalogs/batch_new"
+    post "catalogs/batch_create"
+    post "catalogs/batch_update"
+    resources :catalogs do
+      get :clear
+    end
+    
+    resources :topics
       
+    get "run_logs/index"
     post "run_logs/index"
     get "run_logs/clear"
     resources :run_logs

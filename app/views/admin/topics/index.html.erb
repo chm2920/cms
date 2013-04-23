@@ -1,12 +1,13 @@
 <%= form_tag({:action => "index"}, {:id => "vbform"}) do %>	
 <div class="nav">
 	<div class="list-opts clearfix">
-		<%= will_paginate @run_logs %>
+		<%= will_paginate @topics %>
 		<div class="nav-links">
 			<input type="button" name="selectAll" id="selectAll" value="全选">
 			<input type="button" name="selectOther" id="selectOther" value="反选">
 			<input type="submit" name="delete_all" id="delete_all" value="全部删除">
 			<input type="button" name="clear_all" id="clear_all" value="清空">
+			<a href="/admin/topics/new">添加文章</a>
 		</div>
 	</div>
 </div>
@@ -25,22 +26,22 @@
 		</tr>
 	</thead>
 	<%
-		if @run_logs.length>0
+		if @topics.length>0
 	%>
 	<tbody>
 	<%
-			@run_logs.each do |run_log|
+			@topics.each do |topic|
 	%>
 		<tr>
-			<td><%= check_box_tag 'run_log_ids[]', run_log.id, false, :class => 'checker' %></td>
-			<td><%= run_log.log_path %></td>
-			<td><%= run_log.log_method %></td>
-			<td><%= run_log.log_params %></td>
-			<td><%= run_log.log_exception %></td>
-			<td><%= run_log.log_remote_ip %></td>
-			<td><%= run_log.created_at.strftime("%Y-%m-%d") %></td>
+			<td><%= check_box_tag 'topic_ids[]', topic.id, false, :class => 'checker' %></td>
+			<td><%= topic.log_path %></td>
+			<td><%= topic.log_method %></td>
+			<td><%= topic.log_params %></td>
+			<td><%= topic.log_exception %></td>
+			<td><%= topic.log_remote_ip %></td>
+			<td><%= topic.created_at.strftime("%Y-%m-%d") %></td>
 			<td>
-				<%= link_to "删除", {:action => "destroy", :id => run_log}, :confirm => "确定删除？", :method => "delete" %>
+				<%= link_to "删除", {:action => "destroy", :id => topic}, :confirm => "确定删除？", :method => "delete" %>
 			</td>
 		</tr>
 	<%
@@ -64,7 +65,7 @@
 $('#clear_all').click(function(e){
 	e.preventDefault();
 	e.stopPropagation();
-	location.href = "/admin/run_logs/clear";
+	location.href = "/admin/topics/clear";
 });
 
 $('.checker').click(function(e){

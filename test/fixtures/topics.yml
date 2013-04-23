@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  catalog_id: 1
+  title: MyString
+  writer: MyString
+  source: MyString
+  litpic: MyString
+  hits: 1
+  goodpost: 1
+  badpost: 1
+  notpost: 1
+  keywords: MyString
+  description: MyString
+
+two:
+  catalog_id: 1
+  title: MyString
+  writer: MyString
+  source: MyString
+  litpic: MyString
+  hits: 1
+  goodpost: 1
+  badpost: 1
+  notpost: 1
+  keywords: MyString
+  description: MyString
