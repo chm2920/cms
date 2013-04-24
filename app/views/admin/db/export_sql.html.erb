@@ -1,0 +1,26 @@
+<div class="nav">
+	<div class="list-opts clearfix">
+		<div class="nav-links">
+			<a href="/admin/db/tables">数据表结构</a>
+		</div>
+	</div>
+</div>
+<div class="main">
+<h4>[<%= @table %>]</h4>
+<table class="newtable">
+	<tbody>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<tr>
+			<td class="data_label">sql：</td>
+			<td class="data_ipt">
+				<textarea style="width:80%;height:400px;" name="x"><%= @sql %></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+	</tbody>
+</table>
+</div>

@@ -1,0 +1,82 @@
+<div class="nav">
+	<div class="list-opts clearfix">
+		<div class="nav-links">
+			<input type="button" name="selectAll" id="selectAll" value="全选">
+			<input type="button" name="selectOther" id="selectOther" value="反选">
+			<a href="/admin/db/tables">数据表结构</a>
+		</div>
+	</div>
+</div>
+<%= form_tag "/admin/db/export_sql", :onsubmit => "return check()" do %>
+<div class="main">
+<h4>[<%= @table %>]<input type="hidden" name="table" value="<%= @table %>" /></h4>
+<table class="stdtable">
+	<thead>
+		<tr>
+			<th width="10%">选中</th>
+			<th width="15%">cid</th>
+			<th width="15%">name</th>
+			<th>type</th>
+			<th width="15%">notnull</th>
+			<th width="15%">dflt_value</th>
+			<th width="15%">pk</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+			@structure.each do |s|
+	%>
+		<tr>
+			<td><%= check_box_tag 'columns[]', s["name"], true, :class => 'checker' %></td>
+			<td><%= s["cid"] %></td>
+			<td><%= s["name"] %></td>
+			<td><%= s["type"] %></td>
+			<td><%= s["notnull"] %></td>
+			<td><%= s["dflt_value"] %></td>
+			<td><%= s["pk"] %></td>
+		</tr>
+	<%
+			end
+	%>
+	</tbody>
+	<tfoot>		
+		<tr>
+			<td class="data_sbt" colspan="7">
+				<input type="submit" name="submit" value="导出 SQL" />
+			</td>
+		</tr>
+	</tfoot>
+</table>
+<script type="text/javascript">	
+function check(){
+	if($('input:checked').length == 0){
+		return false;
+	}
+}
+
+$('.checker').click(function(e){
+	e.stopPropagation();
+});
+$('.stdtable tbody td').click(function(e){
+	if(e.target.tagName != 'A'){
+		e.preventDefault();
+		e.stopPropagation();
+		var _c = $(this).parent().find('.checker');
+		_c.attr('checked', !!!$(_c).attr('checked'));
+	}
+});
+$('#selectAll').click(function(e){
+	e.preventDefault();
+	e.stopPropagation();
+	$('.checker').attr('checked', true);
+});
+$('#selectOther').click(function(e){
+	e.preventDefault();
+	e.stopPropagation();
+	$('.checker').each(function(index, elem){
+		$(elem).attr('checked', !$(elem).attr('checked'));
+	});
+});
+</script>
+</div>
+<% end %>

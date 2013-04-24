@@ -1,0 +1,4 @@
+INSERT INTO table VALUES(14,'application/render_not_found','GET','{"controller"=>"application", "action"=>"render_not_found", "path"=>"admin/sys/article_mix"}','admin/sys/article_mix','127.0.0.1','2013-04-24 17:28:24.965920');
+INSERT INTO table VALUES(15,'application/render_not_found','GET','{"controller"=>"application", "action"=>"render_not_found", "path"=>"admin/sys/article_mix"}','admin/sys/article_mix','127.0.0.1','2013-04-24 17:28:25.755649');
+INSERT INTO table VALUES(16,'application/render_not_found','GET','{"controller"=>"application", "action"=>"render_not_found", "path"=>"admin/sys/mark"}','admin/sys/mark','127.0.0.1','2013-04-24 17:28:26.144124');
+INSERT INTO table VALUES(17,'application/render_not_found','GET','{"controller"=>"application", "action"=>"render_not_found", "path"=>"admin/sys/article_mix"}','admin/sys/article_mix','127.0.0.1','2013-04-24 17:28:27.929453');

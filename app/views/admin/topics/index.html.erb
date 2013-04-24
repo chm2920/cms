@@ -25,11 +25,9 @@
 			<th width="10%">管理</th>
 		</tr>
 	</thead>
-	<%
-		if @topics.length>0
-	%>
 	<tbody>
 	<%
+		if @topics.length>0
 			@topics.each do |topic|
 	%>
 		<tr>
@@ -46,19 +44,15 @@
 		</tr>
 	<%
 			end
-	%>
-	</tbody>
-	<%
 		else
 	%>
-	<tbody>
 		<tr>
 			<td colspan="8" style="text-align:left;">&nbsp;还没有内容。</td>
 		</tr>
-	</tbody>
 	<%
 		end
 	%>
+	</tbody>
 </table>
 <% end %>
 <script>	

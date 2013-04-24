@@ -1,0 +1,35 @@
+<div class="nav">
+	<div class="list-opts clearfix">
+		<div class="nav-links">
+			<a href="/admin/db/index">备份/还原</a>
+		</div>
+	</div>
+</div>
+<div class="main">
+<table class="stdtable">
+	<thead>
+		<tr>
+			<th width="10%">type</th>
+			<th width="10%">name</th>
+			<th width="10%">tbl_name</th>
+			<th width="10%">rootpage</th>
+			<th>sql</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+			@tables.each do |table|
+	%>
+		<tr>
+			<td><%= table["type"] %></td>
+			<td><a href="/admin/db/structure?table=<%= table["name"] %>"><%= table["name"] %></a></td>
+			<td><%= table["tbl_name"] %></td>
+			<td><%= table["rootpage"] %></td>
+			<td><%= table["sql"] %></td>
+		</tr>
+	<%
+			end
+	%>
+	</tbody>
+</table>
+</div>

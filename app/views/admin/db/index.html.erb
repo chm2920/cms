@@ -1,0 +1,48 @@
+<div class="nav">
+	<div class="list-opts clearfix">
+		<div class="nav-links">
+			<a href="/admin/db/tables">数据表结构</a>
+		</div>
+	</div>
+</div>
+<%= form_tag "/admin/db/backup" do %>
+<div class="main">
+<table class="stdtable">
+	<thead>
+		<tr>
+			<th width="40%">备份文件</th>
+			<th width="20%">文件大小</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+		if @files.length > 2
+			@files.reject{|t| t == "." || t == ".."}.sort.reverse.each do |entry|
+	%>
+		<tr>
+			<td><%= entry %></td>
+			<td><%= number_to_human_size(File.size(@path.join(entry))) %></td>
+			<td><%= link_to "还原", {:action => "restore", :f => entry}, :confirm => "确定还原？", :method => "post" %>|<%= link_to "删除", {:action => "destroy", :f => entry}, :confirm => "确定删除？", :method => "delete" %></td>
+		</tr>
+	<%
+			end
+		else
+	%>
+		<tr>
+			<td colspan="3" style="text-align:left;">&nbsp;还没有内容。</td>
+		</tr>
+	<%
+		end
+	%>
+	</tbody>
+	<tfoot>		
+		<tr>
+			<td class="data_sbt" colspan="3">
+				<input type="submit" name="submit" value="备份" />
+			</td>
+		</tr>
+	</tfoot>
+</table>
+</div>
+<% end %>

@@ -1,0 +1,37 @@
+<%= form_tag({:action => "sql"}, {:id => "vbform"}) do %>	
+<table class="newtable">
+	<thead>
+		<tr>
+			<th colspan="2">sql 查询</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<tr>
+			<td class="data_label">sql：</td>
+			<td class="data_ipt">
+				<textarea style="width:80%;height:200px;" name="x"><% if !@sql.nil? %><%= @sql %><% end %></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="data_sbt">
+				<input type="submit" name="submit" value="查询" />
+			</td>
+		</tr>
+		<% if !@result.nil? %>
+		<tr>
+			<td class="data_label">result：</td>
+			<td class="data_ipt">
+				<textarea style="width:80%;height:200px;"><%= @result %></textarea>
+			</td>
+		</tr>
+		<% end %>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+	</tbody>
+</table>
+<% end %>

@@ -26,6 +26,19 @@ Cms::Application.routes.draw do
     end
     
     resources :topics
+    
+    get "db/index"
+    
+    post "db/backup"
+    post "db/restore"
+    delete "db/destroy"
+    
+    get "db/sql"
+    post "db/sql"
+    
+    get "db/tables"
+    get "db/structure"
+    post "db/export_sql"
       
     get "run_logs/index"
     post "run_logs/index"

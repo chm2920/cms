@@ -50,6 +50,7 @@ td.data_sbt input:hover, .btnSubmit:hover{background:#485B79;border:1px solid #3
 
 .nav{position:fixed;top:0;left:0;width:100%;border-bottom:1px solid #DDD;background:#FFF;font-size:14px;}
 .main{padding-top:56px;}
+.main h4{padding:4px 0;line-height:30px;font-size:14px;}
 
 .list-opts{padding:14px 40px;}
 .list-opts input{margin:0 10px 0 0;padding:0 20px;height:32px;line-height:32px;background:#EEE;border:1px solid #CCC;border-radius:2px;color:#666;cursor:pointer;}
