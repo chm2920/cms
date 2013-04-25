@@ -5,4 +5,10 @@ class Topic < ActiveRecord::Base
   
   belongs_to :catalog
   
+  has_one :topic_addon
+  
+  def show_url
+    "/topics/#{self.id}"
+  end
+  
 end

@@ -1,4 +1,4 @@
-<%= form_tag({:action => "index"}, {:id => "vbform"}) do %>	
+<%= form_tag({:action => "trashes"}, {:id => "vbform"}) do %>	
 <div class="nav">
 	<div class="list-opts clearfix">
 		<%= will_paginate @topics %>
@@ -6,20 +6,7 @@
 			<input type="button" name="selectAll" id="selectAll" value="全选">
 			<input type="button" name="selectOther" id="selectOther" value="反选">
 			<input type="submit" name="delete_all" id="delete_all" value="全部删除">
-			<a href="/admin/topics/new" style="color:#FF0000;">添加文章</a>
-			<a href="javascript:void(0);" id="topics_catalogs"><% if @catalog %><%= @catalog.name %><% else %>分类查看<% end %><i></i>
-				<ul class="topics_catalogs" style="display:none;">
-					<% @catalogs.each do |catalog| %>
-					<li rel="<%= catalog.id %>"><b><%= catalog.name %></b></li>
-					<% catalog.sub_catalogs.each do |sub_catalog| %>
-					<li rel="<%= sub_catalog.id %>">&nbsp;|--<%= sub_catalog.name %></li>
-					<% sub_catalog.sub_catalogs.each do |sub_sub_catalog| %>
-					<li rel="<%= sub_sub_catalog.id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--<%= sub_sub_catalog.name %></li>
-					<% end %>
-					<% end %>
-					<% end %>
-				</ul>
-			</a>
+			<input type="button" name="clear_all" id="clear_all" value="清空">
 		</div>
 	</div>
 </div>
@@ -44,12 +31,14 @@
 		<tr>
 			<td><%= check_box_tag 'topic_ids[]', topic.id, false, :class => 'checker' %></td>
 			<td><%= topic.id %></td>
-			<td style="text-align:left;"><a href="<%= topic.show_url %>" target="_blank"><%= topic.title %></a><% if !topic.litpic.blank? %> <b>图</b><% end %></td>
+			<td><a href="<%= topic.show_url %>" target="_blank"><%= topic.title %></a><% if !topic.litpic.blank? %> <b>图</b><% end %></td>
 			<td><%= topic.hits %></td>
-			<td><% if topic.catalog %><a href="/admin/topics/index?catalog_id=<%= topic.catalog_id %>"><%= topic.catalog.name %></a><% end %></td>
+			<td><% if topic.catalog %><%= topic.catalog.name %><% end %></td>
 			<td><%= topic.created_at.strftime("%Y-%m-%d") %></td>
 			<td>
-				<a href="/admin/topics/<%= topic.id %>/edit?page=<%= @page %>">修改</a>|<%= link_to "删除", {:action => "del", :id => topic, :page => @page}, :confirm => "确定删除？", :method => "delete" %>
+				<a href="/admin/topics/<%= topic.id %>/edit?page=<%= @page %>">修改</a>
+				|<%= link_to "恢复", {:action => "repost", :id => topic, :page => @page}, :method => "post" %>
+				|<%= link_to "删除", {:action => "destroy", :id => topic, :page => @page}, :confirm => "确定删除？", :method => "delete" %>
 			</td>
 		</tr>
 	<%
@@ -66,20 +55,10 @@
 </table>
 <% end %>
 <script type="text/javascript">
-$('#topics_catalogs, #topics_catalogs i').click(function(e){
+$('#clear_all').click(function(e){
 	e.preventDefault();
 	e.stopPropagation();
-	$('#topics_catalogs ul').toggle();
-});
-$('#topics_catalogs li').click(function(e){
-	e.preventDefault();
-	e.stopPropagation();
-	location.href = "/admin/topics/index?catalog_id=" + $(this).attr('rel');
-});
-$(document).click(function(e){
-	if(e.target != $('#topics_catalogs')[0] && e.target != $('#topics_catalogs ul')[0]){
-		$('#topics_catalogs ul').hide();
-	}
+	location.href = "/admin/topics/clear";
 });
 
 $('.checker').click(function(e){

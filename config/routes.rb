@@ -25,7 +25,20 @@ Cms::Application.routes.draw do
       get :clear
     end
     
+    get "topics/index"
+    post "topics/index"
+    get "topics/trashes"
+    post "topics/trashes"
+    get "topics/clear"
+    delete "topics/del"
+    post "topics/repost"
     resources :topics
+    
+    get "sea/rss"
+    post "sea/rss"
+    post "sea/import_rss"
+    get "sea/auto"
+    post "sea/auto"
     
     get "db/index"
     
@@ -51,7 +64,11 @@ Cms::Application.routes.draw do
   namespace :kindeditor do
     post "/upload" => "assets#create"
     get  "/filemanager" => "assets#list"
-  end
+  end 
+  
+  match "(:catalog_name)/(:catalog_name)/(:catalog_name)/:id" => "topics#show"
+  match "(:catalog_name)/(:catalog_name)/:id" => "topics#show"
+  match "(:catalog_name)/:id" => "topics#show"
 
   root :to => "start#index"
   

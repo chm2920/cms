@@ -31,6 +31,7 @@ body::-webkit-scrollbar-thumb:active{background: rgba(0,0,0,0.6);}
 .stdtable td .checker{width:18px;height:18px;}
 .stdtable tbody tr:hover td{background:#E8EAEB;}
 .stdtable tbody tr td a{margin:0 10px;}
+.stdtable tbody tr td b{font-weight:normal;color:#FF0000;}
 
 .newtable th{padding:6px 20px;height:28px;text-align:left;border:1px solid #DDD;background:#F8F8F8;}
 .newtable td{padding:6px 20px;}
@@ -68,4 +69,12 @@ td.data_sbt input:hover, .btnSubmit:hover{background:#485B79;border:1px solid #3
 .nav-links-r{float:right;display:inline;}
 .nav-links-r form, .nav-links-r div{display:inline-block;}
 
+.re-val{display:inline;margin-left:10px;}
+.re-val span{color:#FF0000;cursor:pointer;}
+
+#topics_catalogs{position:relative;width:80px;text-align:center;}
+#topics_catalogs i{display:inline-block;margin-left:10px;width:0;height:0;border:6px solid #EEE;border-top:6px solid #333;border-bottom:0;}
+#topics_catalogs:hover i{border:6px solid #DDD;border-top:6px solid #333;border-bottom:0;}
+.topics_catalogs{position:absolute;top:31px;left:0;padding:5px 0;background:#EEE;border:1px solid #CCC;}
+.topics_catalogs li{padding:4px 0 4px 10px;width:109px;line-height:22px;text-align:left;}
 

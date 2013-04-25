@@ -1,0 +1,64 @@
+<%= form_tag :action => "auto" do %>
+<table class="stdtable edtable">
+	<thead>
+		<tr>
+			<th width="15%">分类</th>
+			<th width="15%">分类</th>
+			<th width="15%">分类</th>
+			<th>RSS</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+		@catalogs.each do |catalog|
+	%>
+		<tr>
+			<td><%= catalog.name %></td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+	<%
+			catalog.sub_catalogs.each do |sub_catalog|
+				if sub_catalog.sub_catalogs.length > 0
+	%>
+		<tr>
+			<td>&nbsp;</td>
+			<td><%= sub_catalog.name %></td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+	<%
+					sub_catalog.sub_catalogs.each do |sub_sub_catalog|
+	%>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td><%= sub_sub_catalog.name %></td>
+			<td><input type="text" name="urls[]" value="http://news.baidu.com/n?cmd=4&class=<%= sub_sub_catalog.cdir %>&tn=rss" style="width:320px;text-align:left;" /></td>
+		</tr>
+	<%
+					end
+				else
+	%>
+		<tr>
+			<td>&nbsp;</td>
+			<td><%= sub_catalog.name %></td>
+			<td>&nbsp;</td>
+			<td><input type="text" name="urls[]" value="http://news.baidu.com/n?cmd=4&class=<%= sub_catalog.cdir %>&tn=rss" style="width:320px;text-align:left;" /></td>
+		</tr>
+	<%
+				end
+			end
+		end
+	%>
+	</tbody>
+	<tfoot>		
+		<tr>
+			<td class="data_sbt" colspan="4">
+				<input type="submit" name="submit" value="全部采集" />
+			</td>
+		</tr>
+	</tfoot>
+</table>
+<% end %>

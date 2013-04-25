@@ -16,3 +16,6 @@
 
 .project
 .Gemfile.lock
+
+/public/uploads/*
+/db/backup/*

@@ -1,49 +1,19 @@
-<%= form_for [:admin, @catalog] do |f| %>
+<%= javascript_include_tag "kindeditor" %>
+<%= form_for [:admin, @topic] do |f| %>
 <table class="newtable">
 	<thead>
 		<tr>
-			<th colspan="2">移动分类</th>
+			<th colspan="2">修改</th>
 		</tr>
 	</thead>
-	<tbody>
-		<tr>
-			<td colspan="2" class="blank"></td>
-		</tr>
-		<tr>
-			<td class="data_label">分类名称：</td>
-			<td class="data_ipt">
-				<%= @catalog.name %>
-			</td>
-		</tr>
-		<tr>
-			<td class="data_label">上一级分类：</td>
-			<td class="data_ipt">
-				<select name="catalog[parent_id]">
-				<%
-					@catalogs.each do |catalog|
-				%>
-					<option value="<%= catalog.id %>"<% if catalog.id == @catalog.parent_id %> selected<% end %>><%= catalog.name %></option>
-				<%
-						catalog.sub_catalogs.each do |sub_catalog|
-				%>
-					<option value="<%= sub_catalog.id %>"<% if sub_catalog.id == @catalog.parent_id %> selected<% end %>>&nbsp;&nbsp;|--<%= sub_catalog.name %></option>
-				<%
-						end
-				%>	
-				<% 
-					end 
-				%>
-			</td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td class="data_sbt">
-				<input type="submit" name="submit" value="提交" />
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" class="blank"></td>
-		</tr>
-	</tbody>
+	<%= render :partial => 'form', :locals => { :f => f } %>
 </table>
+<input type="hidden" name="page" value="<%= params[:page] %>" />
 <% end %>
+
+<script type="text/javascript">
+$('.re-val span').click(function(){
+	$(this).parent().siblings('input').val($(this).text().replace('【', '').replace('】', ''));
+});
+</script>
+

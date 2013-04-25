@@ -17,13 +17,13 @@
 	</thead>
 	<tbody>
 	<%
-		if @files.length > 2
-			@files.reject{|t| t == "." || t == ".."}.sort.reverse.each do |entry|
+		if @file_list.length > 0
+			@file_list.each do |entry|
 	%>
 		<tr>
-			<td><%= entry %></td>
-			<td><%= number_to_human_size(File.size(@path.join(entry))) %></td>
-			<td><%= link_to "还原", {:action => "restore", :f => entry}, :confirm => "确定还原？", :method => "post" %>|<%= link_to "删除", {:action => "destroy", :f => entry}, :confirm => "确定删除？", :method => "delete" %></td>
+			<td><%= entry[:filename] %></td>
+			<td><%= number_to_human_size(entry[:filesize]) %></td>
+			<td><%= link_to "还原", {:action => "restore", :f => entry[:filename]}, :confirm => "确定还原？", :method => "post" %>|<%= link_to "删除", {:action => "destroy", :f => entry[:filename]}, :confirm => "确定删除？", :method => "delete" %></td>
 		</tr>
 	<%
 			end

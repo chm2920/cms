@@ -6,4 +6,22 @@ class Catalog < ActiveRecord::Base
   
   has_many :topics, :dependent => :destroy
   
+  def sub_catalog_ids
+    ids = []
+    ids << self.id
+    if self.parent_id == 0
+      self.sub_catalogs.each do |catalog|
+        ids << catalog.id
+        catalog.sub_catalogs.each do |sub_catalog|
+          ids << sub_catalog.id
+        end
+      end
+    else
+      self.sub_catalogs.each do |catalog|
+        ids << catalog.id
+      end
+    end
+    ids
+  end
+  
 end

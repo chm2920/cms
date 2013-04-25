@@ -1,0 +1,64 @@
+<%= form_tag :action => "rss" do %>	
+<table class="newtable">
+	<colgroup>
+		<col style="width: 80%">
+		<col style="width: 20%">
+	</colgroup>
+	<thead>
+		<tr>
+			<th colspan="2">解析RSS</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="data_ipt">
+				<input type="text" name="url" style="width:460px;" value="http://news.baidu.com/n?cmd=4&class=gaoceng&tn=rss" />
+			</td>
+			<td class="data_sbt">
+				<input type="submit" name="submit" value="解析" />
+			</td>
+		</tr>
+	</tbody>
+</table>
+<% end %>
+<% if !@feed.nil? %>
+<br />
+<% if @feed != "error" %>
+<%= form_tag :action => "import_rss" do %>
+<table class="stdtable">
+	<thead>
+		<tr>
+			<th>标题</th>
+			<th width="15%">日期</th>
+			<th width="15%">来源</th>
+			<th width="15%">作者</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+			@feed[:items].each do |item|
+	%>
+		<tr>
+			<td><a href="<%= item[:link] %>" title="<%= item[:description] %>" target="_blank"><%= item[:title] %></a></td>
+			<td><%= (DateTime.parse(item[:pubDate]) + 8.hours).strftime("%Y-%m-%d_%H-%M-%S") %></td>
+			<td><%= item[:source] %></td>
+			<td><%= item[:author] %></td>
+		</tr>
+	<%
+			end
+	%>
+	</tbody>
+	<tfoot>		
+		<tr>
+			<td class="data_sbt" colspan="4">
+				<input type="hidden" name="url" value="<%= params[:url] %>" />
+				<input type="submit" name="submit" value="导入" />
+			</td>
+		</tr>
+	</tfoot>
+</table>
+<% end %>
+<% else %>
+解析错误。
+<% end %>
+<% end %>

@@ -1,0 +1,5 @@
+<ul>
+	<% @topics.each do |topic| %>
+	<li><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+	<% end %>
+</ul>

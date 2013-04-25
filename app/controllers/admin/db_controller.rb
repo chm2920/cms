@@ -3,7 +3,18 @@ class Admin::DbController < Admin::Backend
   
   def index
     @path = Rails.root.join("db", "backup")
-    @files = Dir.entries(@path)
+    @file_list = []
+    Dir.foreach(@path) do |filename|
+      hash = {}
+      if filename != "." and filename != ".." and filename != ".DS_Store"
+        file = @path + filename
+        hash[:filesize] = File.size(file)
+        hash[:filename] = filename
+        hash[:datetime] = File.mtime(file).to_s(:db)
+        @file_list << hash
+      end
+    end
+    @file_list.sort! {|b, a| a[:filename] <=> b[:filename]}
   end
 
   def backup
