@@ -8,7 +8,13 @@ class Topic < ActiveRecord::Base
   has_one :topic_addon
   
   def show_url
-    "/topics/#{self.id}"
+    url = []
+    catalog = self.catalog
+    while catalog.parent_id != 0
+      url << catalog.cdir
+      catalog = catalog.parent_catalog
+    end
+    "/#{url.join('/')}/news-" + self.created_at.strftime("%Y%m%d") + "-#{self.id}.html"
   end
   
 end

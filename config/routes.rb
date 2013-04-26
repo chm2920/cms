@@ -56,11 +56,9 @@ Cms::Application.routes.draw do
   end
   
   
-  match ":catalog_cdir/:sub_catalog_cdir/:sub_sub_catalog_cdir/:id" => "topics#show"
+  match "*news-:date-:id.html" => "topics#show"
   match ":root_catalog_cdir/:parent_catalog_cdir/:catalog_cdir" => "catalogs#show"
-  match ":catalog_cdir/:sub_catalog_cdir/:id" => "topics#show"
   match ":parent_catalog_cdir/:catalog_cdir" => "catalogs#list"
-  match ":catalog_cdir/:id" => "topics#show"
   match ":catalog_cdir" => "catalogs#list"
 
   root :to => "start#index"

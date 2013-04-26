@@ -102,5 +102,16 @@ input, option, select, textarea, button {font-size: 12px;}
 .topics-list ul li i{display:inline-block;margin:0 6px 2px 0;width:0;height:0;border:2px solid #000;border-radius:2px;}
 .topics-list ul li a{font-size:14px;}
 
+.topic-path{margin:0 20px 0 0;line-height:36px;}
+.topic-path a{margin:0 8px;font-size:14px;}
+
+.topic-show{padding:10px 26px 20px 26px;}
+.topic-info{padding:20px 0 10px;border-bottom:1px solid #CCC;text-align:center;}
+.topic-info h4{font-size:24px;font-weight:bold;}
+.topic-i{padding:10px 0;line-height:22px;}
+.topic-con{padding:20px 0;line-height:24px;font-size:14px;}
+.topic-con p{margin:20px 0;}
+.topic-con img{display:block;margin:0 auto;max-width:600px;}
+
 
 

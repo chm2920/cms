@@ -1,1 +1,42 @@
-<%= @topic.title %>
+<div class="section clearfix">
+	<div class="l">
+		<div class="topic-path">
+			<a href="/">首页</a>&gt;<a href=""><%= @catalog.name %></a>
+		</div>
+		<div class="topic-show box">
+			<div class="topic-info">
+				<h4><%= @topic.title %></h4>
+				<div class="topic-i">
+					<%= @topic.created_at.strftime("%Y-%m-%d %H:%M:%S") %> 来源：<%= @source %> 作者：<%= @topic.writer %> 点击：<%= @topic.hits %>
+				</div>
+			</div>
+			<div class="topic-con">
+				<p>原文链接：<a href="<%= @source_url %>" target="_blank"><%= @source_url %></a></p>
+				<%= simple_format @topic.topic_addon.content %>
+			</div>
+		</div>
+	</div>
+	<div class="r">
+		<div class="catalog-rank box">
+			<div class="catalog-t">频道总排行</div>
+			<ul class="digg">
+				<% if !@catalog_topics.nil? %>
+				<% @catalog_topics.each do |topic| %>
+				<li><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+				<% end %>
+				<% end %>
+			</ul>
+		</div>
+		<div class="month-rank box">
+			<div class="catalog-t">频道月排行</div>
+			<ul class="digg">
+				<% if !@month_topics.nil? %>
+				<% @month_topics.each do |topic| %>
+				<li><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+				<% end %>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</div>
+
