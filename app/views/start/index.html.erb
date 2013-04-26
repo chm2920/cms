@@ -1,5 +1,93 @@
-<ul>
-	<% @topics.each do |topic| %>
-	<li><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
-	<% end %>
-</ul>
+<div class="section clearfix">
+	<div class="l ann">
+		<img src="http://www.xiaomi.cn/statics/images/0808/iconSpeaker.jpg" />
+		<div class="ann-con">公告：</div>
+	</div>
+	<div class="r index-search">
+		<input type="text" id="indexTxtSearch" name="indexTxtSearch" value="" placeholder="输入您要找的内容...">
+		<a href="javascript:void(0);" onclick="iSearch.post();"><img src="http://www.xiaomi.cn/statics/images/0808/btnSearch.jpg" width="59" height="32" alt="搜索" title="搜索"></a>
+	</div>
+</div>
+
+<div class="section clearfix">
+	<div class="l">
+		<div class="sub-l">
+			<div class="pic-hots box">
+			</div>
+			<div class="hot-news box">
+				
+			</div>
+		</div>
+		<div class="sub-r">
+			<div class="new-topics box">
+				<ul>
+				<% @new_topics.each do |topic| %>
+					<li><span><%= topic.created_at.strftime("%m-%d") %></span><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+				<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="r">
+		<div class="re-ads box"></div>
+	</div>
+</div>
+
+<div class="section sec-t clearfix">
+	<h4><a href="#">Text</a></h4>
+	<span>
+		<a href="#">text1</a>|<a href="#">text2</a>|<a href="#">text3</a>
+	</span>
+</div>
+
+<div class="section clearfix">
+	<div class="l">
+		<div class="sub-l">
+			<div class="pic-hots box">
+			</div>
+			<div class="hot-news box">
+				
+			</div>
+		</div>
+		<div class="sub-r">
+			<div class="new-topics box">
+				
+			</div>
+		</div>
+	</div>
+	<div class="r">
+		<div class="re-ads box"></div>
+	</div>
+</div>
+
+<div class="section sec-t clearfix">
+	<h4><a href="#">Text</a></h4>
+	<span>
+		<a href="#">text1</a>|<a href="#">text2</a>|<a href="#">text3</a>
+	</span>
+</div>
+
+<div class="section clearfix">
+	<div class="ll box" style="height:300px;">
+		
+	</div>
+	<div class="rr box" style="height:300px;">
+	</div>
+</div>
+
+<div class="section clearfix">
+	<div class="ll box" style="height:300px;">
+		
+	</div>
+	<div class="rr box" style="height:300px;">
+	</div>
+</div>
+
+<div class="section friendlinks box">
+	<div class="fl-t">友情链接</div>
+	<p>
+		<% 10.times do %>
+		<a href="#" target="_blank">Text1</li>
+		<% end %>
+	</p>
+</div>

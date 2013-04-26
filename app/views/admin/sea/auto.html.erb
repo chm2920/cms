@@ -1,4 +1,4 @@
-<%= form_tag :action => "auto" do %>
+<%= form_tag :action => "auto_result" do %>
 <table class="stdtable edtable">
 	<thead>
 		<tr>
@@ -34,8 +34,8 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
-			<td><%= sub_sub_catalog.name %></td>
-			<td><input type="text" name="urls[]" value="http://news.baidu.com/n?cmd=4&class=<%= sub_sub_catalog.cdir %>&tn=rss" style="width:320px;text-align:left;" /></td>
+			<td><a href="http://news.baidu.com/n?cmd=4&class=<%= sub_sub_catalog.cdir %>&tn=rss" target="_blank"><%= sub_sub_catalog.name %></a></td>
+			<td><input type="text" name="urls[]" value="http://news.baidu.com/n?cmd=4&class=<%= sub_sub_catalog.cdir %>&tn=rss" style="width:360px;text-align:left;" /></td>
 		</tr>
 	<%
 					end
@@ -43,9 +43,9 @@
 	%>
 		<tr>
 			<td>&nbsp;</td>
-			<td><%= sub_catalog.name %></td>
+			<td><a href="http://news.baidu.com/n?cmd=4&class=<%= sub_catalog.cdir %>&tn=rss" target="_blank"><%= sub_catalog.name %></a></td>
 			<td>&nbsp;</td>
-			<td><input type="text" name="urls[]" value="http://news.baidu.com/n?cmd=4&class=<%= sub_catalog.cdir %>&tn=rss" style="width:320px;text-align:left;" /></td>
+			<td><input type="text" name="urls[]" value="http://news.baidu.com/n?cmd=4&class=<%= sub_catalog.cdir %>&tn=rss" style="width:360px;text-align:left;" /></td>
 		</tr>
 	<%
 				end

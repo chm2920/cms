@@ -1,0 +1,40 @@
+
+<div class="section sec-t clearfix">
+	<h4><%= @catalog.name %></h4>
+</div>
+
+<div class="section clearfix">
+	<div class="l">
+		<div class="catalogs-list">
+			<% @sub_catalogs.each do |catalog| %>
+			<div class="catalog-block box">
+				<div class="catalog-t"><a href="<%= catalog.show_url %>">更多&gt;&gt;</a><%= catalog.name %></div>
+				<ul>
+					<% catalog.new_topics.each do |topic| %>
+					<li><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+		</div>
+	</div>
+	<div class="r">
+		<div class="catalog-rank box">
+			<div class="catalog-t">频道总排行</div>
+			<ul class="digg">
+				<% @catalog_topics.each do |topic| %>
+				<li><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+				<% end %>
+			</ul>
+		</div>
+		<div class="month-rank box">
+			<div class="catalog-t">频道月排行</div>
+			<ul class="digg">
+				<% @month_topics.each do |topic| %>
+				<li><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</div>
+

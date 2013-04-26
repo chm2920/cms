@@ -1,15 +1,4 @@
-Cms::Application.routes.draw do
-  
-  match 'about/(:action)' => 'about#:action'
-  
-  match 'itemcats' => 'api#itemcats'
-  match 'ct/(:id)' => 'api#ct'
-  match 'i/(:id)' => 'api#i'
-  
-  match 'q' => 'api#q'
-  match 'q/(:id)' => 'api#q'
-  
-  match 'phone' => 'start#phone'  
+Cms::Application.routes.draw do 
   
   match "admin" => "account#login"
   get "account/main"
@@ -38,7 +27,7 @@ Cms::Application.routes.draw do
     post "sea/rss"
     post "sea/import_rss"
     get "sea/auto"
-    post "sea/auto"
+    post "sea/auto_result"
     
     get "db/index"
     
@@ -64,11 +53,15 @@ Cms::Application.routes.draw do
   namespace :kindeditor do
     post "/upload" => "assets#create"
     get  "/filemanager" => "assets#list"
-  end 
+  end
   
-  match "(:catalog_name)/(:catalog_name)/(:catalog_name)/:id" => "topics#show"
-  match "(:catalog_name)/(:catalog_name)/:id" => "topics#show"
-  match "(:catalog_name)/:id" => "topics#show"
+  
+  match ":catalog_cdir/:sub_catalog_cdir/:sub_sub_catalog_cdir/:id" => "topics#show"
+  match ":root_catalog_cdir/:parent_catalog_cdir/:catalog_cdir" => "catalogs#show"
+  match ":catalog_cdir/:sub_catalog_cdir/:id" => "topics#show"
+  match ":parent_catalog_cdir/:catalog_cdir" => "catalogs#list"
+  match ":catalog_cdir/:id" => "topics#show"
+  match ":catalog_cdir" => "catalogs#list"
 
   root :to => "start#index"
   

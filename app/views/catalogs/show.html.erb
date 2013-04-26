@@ -1,0 +1,41 @@
+<div class="section clearfix">
+	<div class="l">
+		<div class="catalog-path">
+			<a href="/">首页</a>&gt;<a href=""><%= @catalog.name %></a>
+		</div>
+		<div class="topics-list">
+			<ul>
+				<% @topics.each_with_index do |topic, i| %>
+				<li><span><%= (topic.created_at + 8.hours).strftime("%Y-%m-%d %H:%M:%S") %></span><i></i><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+				<% if (i + 1) % 5 == 0 %>
+				<li class="blank"></li>
+				<% end %>
+				<% end %>
+			</ul>
+			<%= will_paginate @topics %>
+		</div>
+	</div>
+	<div class="r">
+		<div class="catalog-rank box">
+			<div class="catalog-t">频道总排行</div>
+			<ul class="digg">
+				<% if !@catalog_topics.nil? %>
+				<% @catalog_topics.each do |topic| %>
+				<li><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+				<% end %>
+				<% end %>
+			</ul>
+		</div>
+		<div class="month-rank box">
+			<div class="catalog-t">频道月排行</div>
+			<ul class="digg">
+				<% if !@month_topics.nil? %>
+				<% @month_topics.each do |topic| %>
+				<li><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+				<% end %>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</div>
+

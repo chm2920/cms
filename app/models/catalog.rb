@@ -24,4 +24,16 @@ class Catalog < ActiveRecord::Base
     ids
   end
   
+  def show_url
+    if self.parent_id == 0
+      "/#{self.cdir}"
+    else
+      "/#{self.parent_catalog.cdir}/#{self.cdir}"
+    end
+  end
+  
+  def new_topics
+    self.topics.limit(6)
+  end
+  
 end

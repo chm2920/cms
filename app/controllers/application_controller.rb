@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery  
   
+  before_filter :find_catalogs
+  
+  def find_catalogs
+    @catalogs = Catalog.all(:conditions => "parent_id = 0", :order => "sortrank asc, id asc")
+  end
+  
   def self.rescue_errors
     rescue_from Exception,                            :with => :render_error
     rescue_from RuntimeError,                         :with => :render_error

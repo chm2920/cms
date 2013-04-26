@@ -1,0 +1,37 @@
+<table class="stdtable">
+	<thead>
+		<tr>
+			<th>URL</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+		@err_urls.each do |url|
+	%>
+		<tr>
+			<td><a href="<%= url %>" target="_blank"><%= url %></a></td>
+		</tr>
+	<%
+		end
+	%>	
+	</tbody>
+</table>
+<br />
+<table class="stdtable">
+	<thead>
+		<tr>
+			<th>Title</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+		@err_titles.each do |title|
+	%>
+		<tr>
+			<td><%= title %></td>
+		</tr>
+	<%
+		end
+	%>
+	</tbody>
+</table>

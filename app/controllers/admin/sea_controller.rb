@@ -14,7 +14,7 @@ class Admin::SeaController < Admin::Backend
   end
   
   def import_rss
-    feed = import_rss_from_url(params[:url])
+    feed, err_titles = import_rss_from_url(params[:url])
     if feed == "error"
       render :text => "error"
     else
@@ -23,10 +23,34 @@ class Admin::SeaController < Admin::Backend
   end
 
   def auto
+    @catalogs = Catalog.all(:conditions => "parent_id = 0", :order => "sortrank asc, id asc")    
+  end
+
+  def auto_result
     case request.method
     when "POST"
+      if !params[:urls].nil?
+        @err_urls = []
+        @err_titles = []
+        
+        threads = []
+        params[:urls].each do |url|
+          threads << Thread.new(url) do |u|
+            u = u.to_s
+            # url = url.to_s
+            feed, err_titles = import_rss_from_url(u)
+            if feed == "error"
+              @err_urls << u
+            end
+            err_titles.each do |t|
+              @err_titles << t
+            end
+          end
+        end
+        threads.each{|thr|thr.join}
+      end
     else
-      @catalogs = Catalog.all(:conditions => "parent_id = 0", :order => "sortrank asc, id asc")
+      redirect_to [:admin, :sea, :auto]
     end    
   end
   
@@ -54,11 +78,11 @@ private
   
   def import_rss_from_url(url)
     require 'open-uri'
-    
+    err_titles = []
     begin
       feed = rss_parser(url)
       cdir = ""
-      params[:url].scan(/class=(.*?)&/) do |p|
+      url.scan(/class=(.*?)&/) do |p|
         cdir = p[0]
       end
       if cdir != ""
@@ -67,57 +91,62 @@ private
           feed[:items].reverse.each do |item|
             title = item[:title].gsub(/\((.*?)\)/, "").gsub(/（(.*?)）/, "")
             litpic = ""
-            
-            ex_topic = Topic.find_by_title(title)
-            if ex_topic.nil?
-              desc = item[:description].strip.gsub(/<a(.*?)>/, "").gsub(/<\/a>/, "")
-              
-              img_src = ""
-              desc.scan(/<img(.*?)src="(.*?)"/) do |a, b|
-                img_src = b.to_s
-              end
-              if img_src != ""
-                desc = desc.gsub(/<img(.*?)>/, "")
-                begin
-                  img_src = img_src.gsub("http://t1.baidu.com/it/u=", "").gsub("&fm=30", "")
-                  img_src = URI::unescape(img_src)
-                  
-                  Dir.chdir(Rails.public_path)
-                  RailsKindeditor.upload_store_dir.split('/').each do |dir|
-                    Dir.mkdir(dir) unless Dir.exist?(dir)
-                    Dir.chdir(dir)
-                  end
-                  @dir = "image"
-                  Dir.mkdir(@dir) unless Dir.exist?(@dir)
-                                  
-                  img_path = "/#{RailsKindeditor.upload_store_dir}/image/#{Time.now.strftime("%Y%m")}/#{Time.now.strftime("%Y%m%d%H%M%S")}"
-                  img_path += Digest::MD5.hexdigest(File.dirname(img_src)).slice(0, 12) + "." + img_src.match(/(^|\.)([^\.]+)$/)[2].downcase
-
-                  open("#{Rails.public_path}" + img_path, 'wb') do |file|
-                    file << open(img_src).read
-                  end
-                  desc = '<img src="' + img_path + '" />' + desc
-                  litpic = img_path
-                rescue
-                else
+            begin              
+              ex_topic = Topic.find_by_title(title)
+              if ex_topic.nil?
+                desc = item[:description].strip.gsub(/<a(.*?)>/, "").gsub(/<\/a>/, "")
+                
+                img_src = ""
+                desc.scan(/<img(.*?)src="(.*?)"/) do |a, b|
+                  img_src = b.to_s
                 end
-              end
-              ActiveRecord::Base.transaction do
-                topic = Topic.new
-                topic.catalog = catalog
-                topic.title = title
-                topic.source = item[:source] + "##" + item[:link]
-                topic.writer = item[:author]
-                topic.keywords = title
-                topic.description = desc.gsub(/<(.*?)>/, "")
-                topic.litpic = litpic
-                topic.save!
-                topic_addon = TopicAddon.new
-                topic_addon.topic_id = topic.id
-                topic_addon.content = desc
-                topic_addon.save!
-              end
-            end
+                if img_src != ""
+                  desc = desc.gsub(/<img(.*?)>/, "")
+                  begin
+                    img_src = img_src.gsub("http://t1.baidu.com/it/u=", "").gsub("&fm=30", "")
+                    img_src = URI::unescape(img_src)
+                    
+                    Dir.chdir(Rails.public_path)
+                    RailsKindeditor.upload_store_dir.split('/').each do |dir|
+                      Dir.mkdir(dir) unless Dir.exist?(dir)
+                      Dir.chdir(dir)
+                    end
+                    @dir = "image"
+                    Dir.mkdir(@dir) unless Dir.exist?(@dir)
+                                    
+                    img_path = "/#{RailsKindeditor.upload_store_dir}/image/#{Time.now.strftime("%Y%m")}/#{Time.now.strftime("%Y%m%d%H%M%S")}"
+                    img_path += Digest::MD5.hexdigest(File.dirname(img_src)).slice(0, 12) + "." + img_src.match(/(^|\.)([^\.]+)$/)[2].downcase
+  
+                    open("#{Rails.public_path}" + img_path, 'wb') do |file|
+                      file << open(img_src).read
+                    end
+                    desc = '<img src="' + img_path + '" />' + desc
+                    litpic = img_path
+                  rescue
+                  else
+                  end
+                end
+                ActiveRecord::Base.transaction do
+                  topic = Topic.new
+                  topic.catalog = catalog
+                  topic.title = title
+                  topic.source = item[:source] + "##" + item[:link]
+                  topic.writer = item[:author]
+                  topic.keywords = title
+                  topic.description = desc.gsub(/<(.*?)>/, "")
+                  topic.litpic = litpic
+                  topic.save!
+                  topic_addon = TopicAddon.new
+                  topic_addon.topic_id = topic.id
+                  topic_addon.content = desc
+                  topic_addon.save!
+                end
+              end    
+            rescue
+              err_titles << title
+              puts title
+            else
+            end        
           end
         end
       end
@@ -126,7 +155,7 @@ private
       puts url
     else      
     end    
-    feed
+    [feed, err_titles]
   end
   
 end

@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cms</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <title>新闻大观</title>
+  <%= stylesheet_link_tag    "main", :media => "all" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+<div id="Container">
+	<div id="Header">
+		<div class="header-top">
+			<div class="wapper">申明：本站信息来自于互联网，如有版权争议，请联系QQ：395693519。</div>
+		</div>
+		<div class="header-body">
+			<div class="wapper">
+				<div class="logo"><a href="/">新闻大观</a></div>
+				<ul class="nav">
+					<% @catalogs.each do |catalog| %>
+					<li><a href="<%= catalog.show_url %>"><%= catalog.name %></a></li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="PageBody" class="wapper">
+		<%= yield %>
+	</div>
+	<div id="Footer">
+		<div class="foot wapper clearfix">
+			<div class="logo"><a href="/">新闻大观</a></div>
+		</div>
+	</div>
+</div>
 </body>
 </html>
