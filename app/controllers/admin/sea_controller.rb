@@ -36,19 +36,19 @@ class Admin::SeaController < Admin::Backend
         
         threads = []
         params[:urls].each do |url|
-          threads << Thread.new(url) do |u|
-            u = u.to_s
-            # url = url.to_s
-            feed, err_titles = import_rss_from_url(u)
+          # threads << Thread.new(url) do |u|
+            # u = u.to_s
+            url = url.to_s
+            feed, err_titles = import_rss_from_url(url)
             if feed == "error"
-              @err_urls << u
+              @err_urls << url
             end
             err_titles.each do |t|
               @err_titles << t
             end
-          end
+          # end
         end
-        threads.each{|thr|thr.join}
+        # threads.each{|thr|thr.join}
       end
     else
       redirect_to [:admin, :sea, :auto]

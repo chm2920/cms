@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423015501) do
+ActiveRecord::Schema.define(:version => 20130427141207) do
 
   create_table "admins", :force => true do |t|
     t.string   "adminname"
@@ -46,6 +46,11 @@ ActiveRecord::Schema.define(:version => 20130423015501) do
     t.string   "log_exception"
     t.string   "log_remote_ip"
     t.datetime "created_at"
+  end
+
+  create_table "sys_settings", :force => true do |t|
+    t.string "stype"
+    t.text   "setting"
   end
 
   create_table "topic_addons", :force => true do |t|

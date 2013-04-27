@@ -41,6 +41,15 @@ Cms::Application.routes.draw do
     get "db/tables"
     get "db/structure"
     post "db/export_sql"
+    
+    get "sys/settings"
+    post "sys/settings"
+    
+    get "sys/mark"
+    post "sys/mark"
+    
+    get "sys/article_mix"
+    post "sys/article_mix"
       
     get "run_logs/index"
     post "run_logs/index"
