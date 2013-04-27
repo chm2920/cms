@@ -12,7 +12,7 @@
 	<tbody>
 		<tr>
 			<td class="data_ipt">
-				<input type="text" name="url" style="width:460px;" value="http://news.baidu.com/n?cmd=4&class=gaoceng&tn=rss" />
+				<input type="text" name="url" style="width:460px;" value="<% if !params[:url].nil? %><%= params[:url] %><% else %>http://news.baidu.com/n?cmd=4&class=gaoceng&tn=rss<% end %>" />
 			</td>
 			<td class="data_sbt">
 				<input type="submit" name="submit" value="解析" />

@@ -28,12 +28,24 @@ class Catalog < ActiveRecord::Base
     if self.parent_id == 0
       "/#{self.cdir}"
     else
-      "/#{self.parent_catalog.cdir}/#{self.cdir}"
+      urls = [self.cdir]
+      catalog = self.parent_catalog
+      while catalog
+        urls << catalog.cdir
+        catalog = catalog.parent_catalog
+      end
+      "/#{urls.reverse.join('/')}"
     end
   end
   
   def new_topics
-    self.topics.limit(6)
+    if self.sub_catalogs.length > 0
+      sub_catalog_ids = self.sub_catalog_ids
+      topics = Topic.find(:all, :conditions => ["catalog_id in (?)", sub_catalog_ids], :order => "hits desc, id desc", :limit => 6)
+      topics
+    else
+      self.topics.limit(6).order("id desc")
+    end
   end
   
 end

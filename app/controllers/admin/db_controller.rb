@@ -72,7 +72,7 @@ class Admin::DbController < Admin::Backend
             t << "'" + c + "'"
           end
         end
-        @sql << "INSERT INTO table VALUES(" + t.join(",") + ");"
+        @sql << "INSERT INTO #{@table} VALUES(" + t.join(",") + ");"
       end
       @sql = @sql.join("\n")
     end    
@@ -89,8 +89,11 @@ class Admin::DbController < Admin::Backend
       begin
         @sql = params[:x]
         if !@sql.blank?
-          @result = ActiveRecord::Base.connection.exec_query(@sql)
-          @result = @result.to_hash
+          @result = []
+          sqls = @sql.split(";")
+          sqls.each do |sql|
+            @result << ActiveRecord::Base.connection.exec_query(sql).to_hash
+          end
         end
       rescue
         @result = "sql error"

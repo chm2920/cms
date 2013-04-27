@@ -8,13 +8,13 @@ class Topic < ActiveRecord::Base
   has_one :topic_addon
   
   def show_url
-    url = []
+    urls = []
     catalog = self.catalog
-    while catalog.parent_id != 0
-      url << catalog.cdir
+    while catalog
+      urls << catalog.cdir
       catalog = catalog.parent_catalog
     end
-    "/#{url.join('/')}/news-" + self.created_at.strftime("%Y%m%d") + "-#{self.id}.html"
+    "/#{urls.reverse.join('/')}/news-" + self.created_at.strftime("%Y%m%d") + "-#{self.id}.html"
   end
   
 end

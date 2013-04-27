@@ -14,9 +14,10 @@ class Admin::SeaController < Admin::Backend
   end
   
   def import_rss
-    feed, err_titles = import_rss_from_url(params[:url])
+    feed, @err_titles = import_rss_from_url(params[:url])
     if feed == "error"
-      render :text => "error"
+      @err_urls = []
+      render :action => :auto_result
     else
       redirect_to [:admin, :topics]
     end
@@ -71,6 +72,30 @@ private
       item.elements.each do |e|
         new_items[e.name.gsub(/^dc:(\w)/,"\1").to_sym] = e.text
       end
+      data[:items] << new_items
+    end
+    data
+  end
+  
+  def rss_parser_rss2(url)
+    require 'rss/2.0'
+    require 'open-uri'
+    content = open(url).read
+    feed = RSS::Parser.parse(content, false)
+    data = {
+      :title    => feed.channel.title,
+      :home_url => feed.channel.link,
+      :rss_url  => url,
+      :items    => []
+    }
+    feed.items.each do |item|
+      new_items = {}
+      new_items[:title] = item.title
+      new_items[:link] = item.link
+      new_items[:description] = item.description
+      new_items[:pubDate] = item.pubDate
+      new_items[:source] = item.source
+      new_items[:author] = item.author
       data[:items] << new_items
     end
     data
