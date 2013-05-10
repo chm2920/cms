@@ -4,5 +4,9 @@ class CreateSysSettings < ActiveRecord::Migration
       t.string :stype
       t.text :setting
     end
+    
+    SysSetting.create(:stype => "setting", :setting => "")
+    SysSetting.create(:stype => "mark", :setting => "")
+    SysSetting.create(:stype => "article_mix", :setting => "#,CopyRight\r\n#,!@#)!(@#)(!@i!@#_!@(#)q")
   end
 end

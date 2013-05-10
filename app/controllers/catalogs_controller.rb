@@ -11,11 +11,19 @@ class CatalogsController < ApplicationController
       @catalog_topics = Topic.find(:all, :conditions => ["catalog_id in (?)", sub_catalog_ids], :order => "hits desc, id desc", :limit => 10)
       @month_topics = Topic.find(:all, :conditions => ["catalog_id in (?)", sub_catalog_ids], :order => "hits desc, id desc", :limit => 10)
     end
+    
+    @title = @catalog.name
+    @keywords = @catalog.name
+    @desc = @catalog.name
   end
   
   def show
     @catalog = Catalog.find_by_cdir(params[:catalog_cdir])
     render_show
+    
+    @title = @catalog.name
+    @keywords = @catalog.name
+    @desc = @catalog.name
   end
   
 private

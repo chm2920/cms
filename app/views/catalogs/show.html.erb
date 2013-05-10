@@ -6,7 +6,7 @@
 		<div class="topics-list">
 			<ul>
 				<% @topics.each_with_index do |topic, i| %>
-				<li><span><%= (topic.created_at + 8.hours).strftime("%Y-%m-%d %H:%M:%S") %></span><i></i><a href="<%= topic.show_url %>"><%= topic.title %></a></li>
+				<li><span><%= (topic.created_at + 8.hours).strftime("%Y-%m-%d %H:%M:%S") %></span><i></i><a href="<%= topic.show_url %>" target="_blank"><%= topic.title %></a></li>
 				<% if (i + 1) % 5 == 0 %>
 				<li class="blank"></li>
 				<% end %>

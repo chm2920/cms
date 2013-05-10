@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>新闻大观</title>
+  <title><% if !@title.nil? %><%= @title %> - <% else %><% end %>新闻大观</title>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <meta name="keywords" content="<%= @keywords %>">
+  <meta name="description" content="<%= @desc %>">
   <%= stylesheet_link_tag    "main", :media => "all" %>
   <%= csrf_meta_tags %>
 </head>
@@ -27,7 +30,12 @@
 	</div>
 	<div id="Footer">
 		<div class="foot wapper clearfix">
-			<div class="logo"><a href="/">新闻大观</a></div>
+			<p>
+				<% @catalogs.each_with_index do |catalog, i| %>
+					<a href="<%= catalog.show_url %>"><%= catalog.name %></a>
+					<% if (i + 1) % 7 != 0 %><i>|</i><% else %></p><p><% end %>
+				<% end %>
+			新闻大观 news.nxyouxi.com ©2013  All rights reserved.</p>
 		</div>
 	</div>
 </div>

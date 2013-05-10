@@ -47,7 +47,9 @@ input, option, select, textarea, button {font-size: 12px;}
 #PageBody{min-height:400px;}
 
 #Footer{margin:20px 0;border:1px solid #E1E1E1;background:#FAFAFA;color:#555;}
-.foot{padding:20px 0;}
+.foot{padding:20px 18px;}
+.foot p{padding:5px 0;line-height:20px;font-family:Arial;}
+.foot p i{margin:0 8px;font-style:normal;color:#999;}
 
 .ann{height:30px;line-height:30px;border:1px solid #DBDBDB;background:#E1E1E1;color:#666;}
 .ann img{float:left;display:inline;margin:0 4px;height:30px;}

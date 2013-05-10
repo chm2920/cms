@@ -12,7 +12,7 @@
 			</div>
 			<div class="topic-con">
 				<p>原文链接：<a href="<%= @source_url %>" target="_blank"><%= @source_url %></a></p>
-				<%= simple_format @topic.topic_addon.content %>
+				<%= format_news_content(@topic.topic_addon.content, @mixs) %>
 			</div>
 		</div>
 	</div>

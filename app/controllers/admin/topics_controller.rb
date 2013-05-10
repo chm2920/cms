@@ -46,7 +46,7 @@ class Admin::TopicsController < Admin::Backend
     if @topic.save
       @topic_addon = TopicAddon.new
       @topic_addon.topic = @topic
-      @topic_addon.content = params[:content]
+      @topic_addon.content = p_format(params[:content])
       @topic_addon.save
       redirect_to [:admin, :topics]
     else
@@ -58,7 +58,7 @@ class Admin::TopicsController < Admin::Backend
     @topic = Topic.find(params[:id])
     @topic.update_attributes(params[:topic])
     @topic_addon = @topic.topic_addon
-    @topic_addon.content = params[:content]
+    @topic_addon.content = p_format(params[:content])
     @topic_addon.save
     redirect_to :action => :index, :page => params[:page]
   end
@@ -86,6 +86,14 @@ class Admin::TopicsController < Admin::Backend
   def clear
     Topic.destroy_all(:is_trash => 1)
     redirect_to [:admin, :topics, :trashes]
+  end
+  
+private
+
+  def p_format(content)
+    content = content.gsub(/<p(.*?)>/, "<p>")
+    content = content.gsub(/<span(.*?)>/, "<span>")
+    content
   end
   
 end

@@ -13,6 +13,10 @@ class TopicsController < ApplicationController
     
     @sys_setting = SysSetting.find_by_stype("article_mix")
     @mixs = @sys_setting.setting.split("#,")
+    
+    @title = @topic.title
+    @keywords = @topic.keywords
+    @desc = @topic.description
   end
   
 end
