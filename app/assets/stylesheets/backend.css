@@ -25,7 +25,7 @@ body:hover::-webkit-scrollbar-thumb{background-color: rgba(0,0,0,0.2);border-rad
 body::-webkit-scrollbar-thumb:hover{background-color: rgba(0,0,0,0.4);-webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);}
 body::-webkit-scrollbar-thumb:active{background: rgba(0,0,0,0.6);}
 
-.stdtable, .newtable{width:100%;border-collapse:collapse;border-spacing:0;border:1px solid #DDD;}
+.stdtable, .newtable, .setTable{width:100%;border-collapse:collapse;border-spacing:0;border:1px solid #DDD;}
 .stdtable th, .stdtable td{padding:6px 10px;height:28px;text-align:center;border:1px solid #DDD;}
 .stdtable th{background:#F8F8F8;}
 .stdtable td .checker{width:18px;height:18px;}
@@ -47,6 +47,20 @@ td.data_sbt input:hover, .btnSubmit:hover{background:#485B79;border:1px solid #3
 .btnSubmit{width:100px;}
 
 .edtable tbody td input{padding:4px 6px;width:120px;height:20px;line-height:20px;text-align:center;border:1px solid #CCC;border-radius:2px;font-size:12px;}
+
+.setTable th{padding:6px 20px;height:28px;text-align:left;border:1px solid #DDD;background:#F8F8F8;}
+.setTable td{padding:6px 20px;}
+.setTable td.blank{padding:0;height:20px;}
+.setTable td.data_label{width:32%;text-align:right;color:#666;}
+.setTable td.data_check input{margin:0 4px -2px;}
+.setTable td.data_ipt{text-align:left;}
+.setTable td.data_ipt input{padding:4px 6px;width:200px;height:20px;line-height:20px;border:1px solid #CCC;border-radius:2px;font-size:12px;}
+.setTable td.data_ipt textarea{padding:8px 10px;width:360px;height:80px;border:1px solid #CCC;}
+
+.checkTable{border-collapse:collapse;border-spacing:0;border:1px solid #DDD;}
+.checkTable td{padding:6px 10px;height:28px;text-align:center;border:1px solid #DDD;}
+
+.data_result{color:#FF0000;}
 
 
 .nav{position:fixed;top:0;left:0;width:100%;border-bottom:1px solid #DDD;background:#FFF;font-size:14px;}

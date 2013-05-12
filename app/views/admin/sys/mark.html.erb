@@ -1,8 +1,8 @@
-<%= form_tag :action => "article_mix" do %>	
-<table class="newtable">
+<%= form_tag :action => "mark" do %>	
+<table class="setTable">
 	<thead>
 		<tr>
-			<th colspan="2">防采集混淆</th>
+			<th colspan="2">图片水印设置</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -10,9 +10,50 @@
 			<td colspan="2" class="blank"></td>
 		</tr>
 		<tr>
-			<td class="data_label">防采集混淆字符串：</td>
+			<td class="data_label">上传的图片是否使用图片水印功能：</td>
+			<td class="data_check">
+				<label><input type="radio" name="sys_setting[setting][opend]" value="opend"<% if @setting["opend"] == "opend" %> checked="checked"<% end %> />开启</label>
+				<label><input type="radio" name="sys_setting[setting][opend]" value="closed"<% if @setting["opend"] == "closed" %> checked="checked"<% end %> />关闭</label>
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">水印图片文字：</td>
 			<td class="data_ipt">
-				<textarea style="width:80%;height:200px;" name="sys_setting[setting]"><%= @sys_setting.setting %></textarea>
+				<input type="text" name="sys_setting[setting][word]" value="<%= @setting["word"] %>" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">水印图片文字字体大小：</td>
+			<td class="data_ipt">
+				<input type="text" name="sys_setting[setting][size]" value="<%= @setting["size"] %>" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">水印图片文字颜色：</td>
+			<td class="data_ipt">
+				<input type="text" name="sys_setting[setting][color]" value="<%= @setting["color"] %>" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">水印位置：</td>
+			<td class="data_check">
+				<table class="checkTable">
+					<tr>
+						<td><label><input type="radio" name="sys_setting[setting][pos]" value="NorthEast"<% if @setting["pos"] == "NorthEast" %> checked="checked"<% end %> />顶部居左</label></td>
+						<td><label><input type="radio" name="sys_setting[setting][pos]" value="NorthCenter"<% if @setting["pos"] == "NorthCenter" %> checked="checked"<% end %> />顶部居中</label></td>
+						<td><label><input type="radio" name="sys_setting[setting][pos]" value="NorthWest"<% if @setting["pos"] == "NorthWest" %> checked="checked"<% end %> />顶部居右</label></td>
+					</tr>
+					<tr>
+						<td><label><input type="radio" name="sys_setting[setting][pos]" value="CenterEast"<% if @setting["pos"] == "CenterEast" %> checked="checked"<% end %> />左边居中</label></td>
+						<td><label><input type="radio" name="sys_setting[setting][pos]" value="Center"<% if @setting["pos"] == "Center" %> checked="checked"<% end %> />图片中心</label></td>
+						<td><label><input type="radio" name="sys_setting[setting][pos]" value="CenterWest"<% if @setting["pos"] == "CenterWest" %> checked="checked"<% end %> />右边居中</label></td>
+					</tr>
+					<tr>
+						<td><label><input type="radio" name="sys_setting[setting][pos]" value="SouthEast"<% if @setting["pos"] == "SouthEast" %> checked="checked"<% end %> />底部居左</label></td>
+						<td><label><input type="radio" name="sys_setting[setting][pos]" value="SouthCenter"<% if @setting["pos"] == "SouthCenter" %> checked="checked"<% end %> />底部居中</label></td>
+						<td><label><input type="radio" name="sys_setting[setting][pos]" value="SouthWest"<% if @setting["pos"] == "SouthWest" %> checked="checked"<% end %> />底部居右</label></td>
+					</tr>
+				</table>
 			</td>
 		</tr>
 		<tr>
@@ -23,10 +64,11 @@
 		</tr>
 		<% if !@result.nil? %>
 		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<tr>
 			<td class="data_label">result：</td>
-			<td class="data_ipt">
-				<%= @result %>
-			</td>
+			<td class="data_result">保存成功。</td>
 		</tr>
 		<% end %>
 		<tr>

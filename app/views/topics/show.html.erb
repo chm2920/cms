@@ -1,8 +1,8 @@
 <div class="section clearfix">
+	<div class="topic-path">
+		<a href="/">首页</a>&gt;<a href=""><%= @catalog.name %></a>
+	</div>
 	<div class="l">
-		<div class="topic-path">
-			<a href="/">首页</a>&gt;<a href=""><%= @catalog.name %></a>
-		</div>
 		<div class="topic-show box">
 			<div class="topic-info">
 				<h4><%= @topic.title %></h4>
@@ -14,6 +14,13 @@
 				<p>原文链接：<a href="<%= @source_url %>" target="_blank"><%= @source_url %></a></p>
 				<%= format_news_content(@topic.topic_addon.content, @mixs) %>
 			</div>
+			<div class="topic-closet">
+				<p><b>上一篇：</b></p>
+				<p><b>下一篇：</b></p>
+			</div>
+		</div>
+		<div class="comments box">
+			网友评论
 		</div>
 	</div>
 	<div class="r">

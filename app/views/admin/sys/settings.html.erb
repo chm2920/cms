@@ -1,8 +1,8 @@
-<%= form_tag :action => "article_mix" do %>	
-<table class="newtable">
+<%= form_tag :action => "settings" do %>	
+<table class="setTable">
 	<thead>
 		<tr>
-			<th colspan="2">防采集混淆</th>
+			<th colspan="2">系统参数</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -10,9 +10,21 @@
 			<td colspan="2" class="blank"></td>
 		</tr>
 		<tr>
-			<td class="data_label">防采集混淆字符串：</td>
+			<td class="data_label">网站名称：</td>
 			<td class="data_ipt">
-				<textarea style="width:80%;height:200px;" name="sys_setting[setting]"><%= @sys_setting.setting %></textarea>
+				<input type="text" name="sys_setting[setting][site_name]" value="<%= @setting["site_name"] %>" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">站点默认关键字：</td>
+			<td class="data_ipt">
+				<input type="text" name="sys_setting[setting][site_keywords]" value="<%= @setting["site_keywords"] %>" style="width:360px;" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">站点描述：</td>
+			<td class="data_ipt">
+				<textarea name="sys_setting[setting][site_desc]"><%= @setting["site_desc"] %></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -23,10 +35,11 @@
 		</tr>
 		<% if !@result.nil? %>
 		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<tr>
 			<td class="data_label">result：</td>
-			<td class="data_ipt">
-				<%= @result %>
-			</td>
+			<td class="data_result">保存成功。</td>
 		</tr>
 		<% end %>
 		<tr>

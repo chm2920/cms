@@ -1,5 +1,5 @@
 <%= form_tag :action => "article_mix" do %>	
-<table class="newtable">
+<table class="setTable">
 	<thead>
 		<tr>
 			<th colspan="2">防采集混淆</th>
@@ -23,10 +23,11 @@
 		</tr>
 		<% if !@result.nil? %>
 		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<tr>
 			<td class="data_label">result：</td>
-			<td class="data_ipt">
-				<%= @result %>
-			</td>
+			<td class="data_result">保存成功。</td>
 		</tr>
 		<% end %>
 		<tr>

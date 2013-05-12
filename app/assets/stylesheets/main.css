@@ -50,6 +50,7 @@ input, option, select, textarea, button {font-size: 12px;}
 .foot{padding:20px 18px;}
 .foot p{padding:5px 0;line-height:20px;font-family:Arial;}
 .foot p i{margin:0 8px;font-style:normal;color:#999;}
+.foot img{float:right;display:inline;margin:28px 20px 0 0;}
 
 .ann{height:30px;line-height:30px;border:1px solid #DBDBDB;background:#E1E1E1;color:#666;}
 .ann img{float:left;display:inline;margin:0 4px;height:30px;}
@@ -114,6 +115,12 @@ input, option, select, textarea, button {font-size: 12px;}
 .topic-con{padding:20px 0;line-height:24px;font-size:14px;}
 .topic-con p{margin:20px 0;}
 .topic-con img{display:block;margin:0 auto;max-width:600px;}
+
+.topic-closet{}
+.topic-closet p{line-height:24px;}
+.topic-closet p b{}
+
+.comments{margin:10px 0 0;}
 
 
 
