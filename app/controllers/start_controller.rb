@@ -16,4 +16,16 @@ class StartController < ApplicationController
     end
   end
   
+  def ajs
+    @ad = Ad.find(params[:id])
+    if !@ad.nil?
+      v = <<JAVASCRIPT
+document.write("#{@ad.code}");
+JAVASCRIPT
+      render :text => v
+    else
+      render :text => ""
+    end
+  end
+  
 end

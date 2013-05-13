@@ -1,0 +1,144 @@
+<%= form_for [:admin, @ad] do |f| %>
+<style>
+.ad-pic, .ad-flash, .ad-word, .ad-code{display:none;}
+</style>
+<table class="newtable">
+	<thead>
+		<tr>
+			<th colspan="2">新增</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<tr>
+			<td class="data_label">名称：</td>
+			<td class="data_ipt">
+				<%= f.text_field :title %>
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">标示：</td>
+			<td class="data_ipt">
+				<%= f.text_field :mark, :style => "width:200px;" %>
+				填写数字或英文，不能使用汉字，这个是在模板中调用时标签中使用的
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">类型：</td>
+			<td class="data_check" id="ad_type">
+				<label><input type="radio" name="ad[ad_type]" value="pic" />图片</label>
+				<label><input type="radio" name="ad[ad_type]" value="flash" />FLASH</label>
+				<label><input type="radio" name="ad[ad_type]" value="word" />文本</label>
+				<label><input type="radio" name="ad[ad_type]" value="code" />代码</label>
+			</td>
+		</tr>
+		<tr class="ad-pic">
+			<td class="data_label">图片地址：</td>
+			<td class="data_ipt">
+				<input type="text" id="ad_info_pic_src" name="ad[info][pic][p_src]" />
+			</td>
+		</tr>
+		<tr class="ad-pic">
+			<td class="data_label">图片链接：</td>
+			<td class="data_ipt">
+				<input type="text" id="ad_info_pic_url" name="ad[info][pic][p_url]" />
+			</td>
+		</tr>
+		<tr class="ad-pic">
+			<td class="data_label">图片宽度：</td>
+			<td class="data_ipt">				
+				<input type="text" id="ad_size_pic_width" name="ad[size][pic][p_width]" style="width:100px;" />
+			</td>
+		</tr>
+		<tr class="ad-pic">
+			<td class="data_label">图片高度：</td>
+			<td class="data_ipt">				
+				<input type="text" id="ad_size_pic_height" name="ad[size][pic][p_height]" style="width:100px;" />
+			</td>
+		</tr>
+		<tr class="ad-pic">
+			<td class="data_label">图片描述：</td>
+			<td class="data_ipt">
+				<input type="text" id="ad_info_pic_desc" name="ad[info][pic][p_desc]" />
+			</td>
+		</tr>
+		<tr class="ad-flash">
+			<td class="data_label">Flash链接：</td>
+			<td class="data_ipt">
+				<input type="text" id="ad_info_flash_src" name="ad[info][flash][f_src]" />
+			</td>
+		</tr>
+		<tr class="ad-flash">
+			<td class="data_label">Flash宽度：</td>
+			<td class="data_ipt">				
+				<input type="text" id="ad_size_flash_width" name="ad[size][flash][f_width]" style="width:100px;" />
+			</td>
+		</tr>
+		<tr class="ad-flash">
+			<td class="data_label">Flash高度：</td>
+			<td class="data_ipt">				
+				<input type="text" id="ad_size_flash_height" name="ad[size][flash][f_height]" style="width:100px;" />
+			</td>
+		</tr>
+		<tr class="ad-word">
+			<td class="data_label">文字内容：</td>
+			<td class="data_ipt">
+				<input type="text" id="ad_info_word_w" name="ad[info][word][w_w]" />
+			</td>
+		</tr>
+		<tr class="ad-word">
+			<td class="data_label">文字链接：</td>
+			<td class="data_ipt">
+				<input type="text" id="ad_info_word_url" name="ad[info][word][w_url]" />
+			</td>
+		</tr>
+		<tr class="ad-word">
+			<td class="data_label">文字颜色：</td>
+			<td class="data_ipt">
+				<input type="text" id="ad_info_word_color" name="ad[info][word][w_color]" value="#FF0000" style="width:100px;" />
+			</td>
+		</tr>
+		<tr class="ad-word">
+			<td class="data_label">文字大小：</td>
+			<td class="data_ipt">
+				<input type="text" id="ad_info_word_size" name="ad[info][word][w_size]" value="12px" style="width:100px;" />
+			</td>
+		</tr>
+		<tr class="ad-code">
+			<td class="data_label">代码：</td>
+			<td class="data_ipt">
+				<textarea name="ad_info_code"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="data_sbt">
+				<input type="submit" name="submit" value="提交" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+	</tbody>
+</table>
+<% end %>
+<script type="text/javascript">
+var type = 'pic';
+show_ad_type(type);
+$('#ad_type input[value=' + type + ']').attr("checked", "checked");
+
+function show_ad_type(type){
+	$('.ad-pic').hide();
+	$('.ad-flash').hide();
+	$('.ad-word').hide();
+	$('.ad-code').hide();
+	$('.ad-' + type).show();
+}
+
+$('#ad_type input').click(function(){
+	var v = $('#ad_type input:checked').val();
+	show_ad_type(v);
+});
+</script>

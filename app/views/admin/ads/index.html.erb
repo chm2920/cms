@@ -1,0 +1,78 @@
+<div class="nav">
+	<div class="list-opts">
+		<div class="nav-links">
+			<a href="/admin/ads">广告管理</a>
+			<a href="/admin/ads/new">添加广告</a>
+		</div>
+	</div>
+</div>
+<%= form_tag "/admin/ads/index" do |f| %>
+<div class="main">
+<table class="stdtable edtable">
+	<thead>
+		<tr>
+			<th width="10%">编号</th>
+			<th>名称</th>
+			<th width="10%">标示</th>
+			<th width="10%">类型</th>
+			<th width="20%">尺寸</th>
+			<th width="10%">时间</th>
+			<th width="15%">管理</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+		if @ads.length>0
+			@ads.each do |ad|
+	%>
+		<tr>
+			<td><%= ad.id %></td>
+			<td style="text-align:left;"><%= ad.title %></td>
+			<td><%= ad.mark %></td>
+			<td><%=
+					case ad.ad_type
+					when "pic"
+						"图片"
+					when "flash"
+						"Flash"
+					when "word"
+						"文字"
+					when "code"
+						"代码"
+					else
+						""
+					end
+				%></td>
+			<td><%= 
+				case ad.ad_type
+				when "pic"
+					size = JSON.parse(ad.size)
+					size["p_width"] + " x " + size["p_height"]
+				when "flash"
+					size = JSON.parse(ad.size)
+					size["f_width"] + " x " + size["f_height"]
+				end
+			%></td>
+			<td><%= ad.created_at.strftime("%m-%d") %></td>
+			<td>
+				<a href="/admin/ads/<%= ad.id %>/edit">修改</a>|<%= link_to "删除", {:action => "destroy", :id => ad}, :confirm => "确定删除？", :method => "delete" %>
+			</td>
+		</tr>
+	<%
+			end
+		else
+	%>
+		<tr>
+			<td colspan="7" style="text-align:left;">&nbsp;还没有内容。</td>
+		</tr>
+	<%
+		end
+	%>
+	</tbody>
+</table>
+</div>
+<div style="margin:50px 0 0;">
+调用代码：<br />
+<textarea style="margin:10px 0 0;padding:20px;width:600px;height:24px;line-height:24px;border:1px solid #CCC;"><script src="/ajs/(:id).js" type="text/javascript"></script></textarea>
+</div>
+<% end %>

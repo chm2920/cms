@@ -1,5 +1,6 @@
 Cms::Application.routes.draw do 
   
+  match "ajs/(:id).js" => "start#ajs"
   match "gb" => "start#gb"
   
   match "admin" => "account#login"
@@ -55,6 +56,9 @@ Cms::Application.routes.draw do
     
     get "sys/mails"
     post "sys/mails"
+    
+    post "ads/index"
+    resources :ads
     
     post "friendlinks/batch_update"
     resources :friendlinks

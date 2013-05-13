@@ -37,6 +37,7 @@ body::-webkit-scrollbar-thumb:active{background: rgba(0,0,0,0.6);}
 .newtable td{padding:6px 20px;}
 .newtable td.blank{padding:0;height:20px;}
 .newtable td.data_label{width:15%;text-align:right;color:#666;}
+.newtable td.data_check input{margin:0 4px -2px;}
 .newtable td.data_ipt{text-align:left;}
 .newtable td.data_ipt input{padding:4px 6px;width:400px;height:20px;line-height:20px;border:1px solid #CCC;border-radius:2px;font-size:12px;}
 .newtable td.data_ipt select{padding:0 20px;width:140px;height:30px;line-height:30px;background:#FFF;border:1px solid #CCC;border-radius:2px;font-size:12px;}
