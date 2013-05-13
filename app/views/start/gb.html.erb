@@ -1,0 +1,44 @@
+<%= form_for "gb" do |f| %>
+<table class="guestbook">
+	<thead>
+		<tr>
+			<th colspan="2">留言</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<tr>
+			<td class="data_label">标题：</td>
+			<td class="data_ipt">
+				<%= f.text_field :title %>
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">姓名：</td>
+			<td class="data_ipt">
+				<input type="text" id="gb_info_name" name="gb[info][name]" size="30" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">联系方式：</td>
+			<td class="data_ipt">
+				<input type="text" id="gb_info_contact" name="gb[info][contact]" size="30" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">内容：</td>
+			<td class="data_ipt">
+				<%= f.text_area :content %>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="data_sbt">
+				<input type="submit" name="submit" value="提交" />
+			</td>
+		</tr>
+	</tbody>
+</table>
+<% end %>

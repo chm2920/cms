@@ -1,5 +1,7 @@
 Cms::Application.routes.draw do 
   
+  match "gb" => "start#gb"
+  
   match "admin" => "account#login"
   get "account/main"
   get "account/desktop"
@@ -50,6 +52,15 @@ Cms::Application.routes.draw do
     
     get "sys/article_mix"
     post "sys/article_mix"
+    
+    get "sys/mails"
+    post "sys/mails"
+    
+    post "friendlinks/batch_update"
+    resources :friendlinks
+    
+    post "guestbooks/index"
+    resources :guestbooks
       
     get "run_logs/index"
     post "run_logs/index"

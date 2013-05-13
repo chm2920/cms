@@ -1,0 +1,56 @@
+<%= javascript_include_tag "kindeditor" %>
+<%= form_for [:admin, @guestbook] do |f| %>
+<% info = JSON.parse(@guestbook.info) %>
+<table class="newtable">
+	<thead>
+		<tr>
+			<th colspan="2">查看</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<tr>
+			<td class="data_label">标题：</td>
+			<td class="data_ipt">
+				<%= @guestbook.title %>
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">姓名：</td>
+			<td class="data_ipt">
+				<%= info["name"] %>
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">联系方式：</td>
+			<td class="data_ipt">
+				<%= info["contact"] %>
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">内容：</td>
+			<td class="data_ipt">
+				<%= @guestbook.content %>
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">回复：</td>
+			<td class="data_ipt">
+				<%= kindeditor_tag :reply, @guestbook.reply, :window_onload => true, :width => 680, :height => 400 %>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="data_sbt">
+				<input type="submit" name="submit" value="提交" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+	</tbody>
+</table>
+<input type="hidden" name="page" value="<%= params[:page] %>" />
+<% end %>

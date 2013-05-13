@@ -1,0 +1,61 @@
+<div class="nav">
+	<div class="list-opts">
+		<div class="nav-links">
+			<a href="/admin/friendlinks">管理列表</a>
+			<a href="/admin/friendlinks/new">添加链接</a>
+		</div>
+	</div>
+</div>
+<%= form_tag "/admin/friendlinks/batch_update" do |f| %>
+<div class="main">
+<table class="stdtable edtable">
+	<thead>
+		<tr>
+			<th width="10%">编号</th>
+			<th>名称</th>
+			<th width="30%">链接</th>
+			<th width="10%">排序</th>
+			<th width="20%">管理</th>
+		</tr>
+	</thead>
+	<%
+		if @friendlinks.length>0
+	%>
+	<tbody>
+	<%
+			@friendlinks.each do |friendlink|
+	%>
+		<tr>
+			<td><%= friendlink.id %></td>
+			<td><%= text_field "friendlink[#{friendlink.id}]", :title, :style => "width:240px", :value => friendlink.title %></td>
+			<td><%= text_field "friendlink[#{friendlink.id}]", :link, :style => "width:240px", :value => friendlink.link %></td>
+			<td><%= text_field "friendlink[#{friendlink.id}]", :rank, :style => "width:80px", :value => friendlink.rank %></td>
+			<td>
+				<%= link_to "删除", {:action => "destroy", :id => friendlink}, :confirm => "确定删除？", :method => "delete" %>
+			</td>
+		</tr>
+	<%
+			end
+	%>
+	</tbody>
+	<tfoot>		
+		<tr>
+			<td class="data_sbt" colspan="5">
+				<input type="submit" name="submit" value="保存" />
+			</td>
+		</tr>
+	</tfoot>
+	<%
+		else
+	%>
+	<tbody>
+		<tr>
+			<td colspan="5" style="text-align:left;">&nbsp;还没有内容。</td>
+		</tr>
+	</tbody>
+	<%
+		end
+	%>
+</table>
+</div>
+<% end %>

@@ -1,0 +1,88 @@
+<%= form_tag({:action => "index"}, {:id => "vbform"}) do %>	
+<div class="nav">
+	<div class="list-opts clearfix">
+		<%= will_paginate @guestbooks %>
+		<div class="nav-links">
+			<input type="button" name="selectAll" id="selectAll" value="全选">
+			<input type="button" name="selectOther" id="selectOther" value="反选">
+			<input type="submit" name="delete_all" id="delete_all" value="全部删除">
+			<input type="hidden" name="page" value="<%= @page %>" />
+		</div>
+	</div>
+</div>
+<div class="main">
+<table class="stdtable">
+	<thead>
+		<tr>
+			<th width="5%">选择</th>
+			<th width="5%">ID</th>
+			<th>标题</th>
+			<th width="20%">信息</th>
+			<th width="20%">内容</th>
+			<th width="15%">日期</th>
+			<th width="15%">管理</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+		if @guestbooks.length>0
+			@guestbooks.each do |guestbook|
+				info = JSON.parse(guestbook.info)
+	%>
+		<tr>
+			<td><%= check_box_tag 'guestbook_ids[]', guestbook.id, false, :class => 'checker' %></td>
+			<td><%= guestbook.id %></td>
+			<td style="text-align:left;"><%= guestbook.title %></a></td>
+			<td style="text-align:left;"><b><%= info["name"] %></b><br /><%= info["contact"] %></td>
+			<td style="text-align:left;"><%= guestbook.content %></td>
+			<td><%= guestbook.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+			<td>
+				<a href="/admin/guestbooks/<%= guestbook.id %>/edit?page=<%= @page %>"><% if !guestbook.reply.blank? %> <b>已回复</b><% else %>回复<% end %></a>|<%= link_to "删除", {:action => "destroy", :id => guestbook, :page => @page}, :confirm => "确定删除？", :method => "delete" %>
+			</td>
+		</tr>
+	<%
+			end
+		else
+	%>
+		<tr>
+			<td colspan="7" style="text-align:left;">&nbsp;还没有内容。</td>
+		</tr>
+	<%
+		end
+	%>
+	</tbody>
+</table>
+<% end %>
+<script type="text/javascript">
+$('.checker').click(function(e){
+	e.stopPropagation();
+});
+$('.stdtable td').click(function(e){
+	if(e.target.tagName != 'A' && e.target.tagName != 'B'){
+		e.preventDefault();
+		e.stopPropagation();
+		var _c = $(this).parent().find('.checker');
+		_c.attr('checked', !!!$(_c).attr('checked'));
+	}
+});
+$('#selectAll').click(function(e){
+	e.preventDefault();
+	e.stopPropagation();
+	$('.checker').attr('checked', true);
+});
+$('#selectOther').click(function(e){
+	e.preventDefault();
+	e.stopPropagation();
+	$('.checker').each(function(index, elem){
+		$(elem).attr('checked', !$(elem).attr('checked'));
+	});
+});
+$('#delete_all').click(function(e){
+	e.stopPropagation();
+	if($('input:checked').length == 0){
+		alert("请选择批量处理的ID!");
+		return false;
+	}
+});
+</script>
+</div>

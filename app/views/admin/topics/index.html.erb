@@ -6,6 +6,7 @@
 			<input type="button" name="selectAll" id="selectAll" value="全选">
 			<input type="button" name="selectOther" id="selectOther" value="反选">
 			<input type="submit" name="delete_all" id="delete_all" value="全部删除">
+			<input type="hidden" name="page" value="<%= @page %>" />
 			<a href="/admin/topics/new" style="color:#FF0000;">添加文章</a>
 			<a href="javascript:void(0);" id="topics_catalogs"><% if @catalog %><%= @catalog.name %><% else %>分类查看<% end %><i></i>
 				<ul class="topics_catalogs" style="display:none;">

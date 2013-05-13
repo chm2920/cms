@@ -1,0 +1,68 @@
+<%= form_tag :action => "mails" do %>	
+<table class="setTable">
+	<thead>
+		<tr>
+			<th colspan="2">邮件设置</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<tr>
+			<td class="data_label">邮件服务器：</td>
+			<td class="data_ipt">
+				<input type="text" name="sys_setting[setting][server]" value="<%= @setting["server"] %>" style="width:360px;" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">邮件发送端口：</td>
+			<td class="data_ipt">
+				<input type="text" name="sys_setting[setting][port]" value="<%= @setting["port"] %>" style="width:360px;" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">发件人地址：</td>
+			<td class="data_ipt">
+				<input type="text" name="sys_setting[setting][sender]" value="<%= @setting["sender"] %>" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">验证用户名：</td>
+			<td class="data_ipt">
+				<input type="text" name="sys_setting[setting][user]" value="<%= @setting["user"] %>" style="width:360px;" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">验证密码：</td>
+			<td class="data_ipt">
+				<input type="text" name="sys_setting[setting][pass]" value="<%= @setting["pass"] %>" style="width:360px;" />
+			</td>
+		</tr>
+		<tr>
+			<td class="data_label">邮箱设置测试：</td>
+			<td class="data_ipt">
+				<input type="text" name="sys_setting[setting][test]" value="<%= @setting["test"] %>" style="width:360px;" />
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="data_sbt">
+				<input type="submit" name="submit" value="确定" />
+			</td>
+		</tr>
+		<% if !@result.nil? %>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+		<tr>
+			<td class="data_label">result：</td>
+			<td class="data_result">保存成功。</td>
+		</tr>
+		<% end %>
+		<tr>
+			<td colspan="2" class="blank"></td>
+		</tr>
+	</tbody>
+</table>
+<% end %>
