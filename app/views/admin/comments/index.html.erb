@@ -1,0 +1,86 @@
+<%= form_tag({:action => "index"}, {:id => "vbform"}) do %>	
+<div class="nav">
+	<div class="list-opts clearfix">
+		<%= will_paginate @comments %>
+		<div class="nav-links">
+			<input type="button" name="selectAll" id="selectAll" value="全选">
+			<input type="button" name="selectOther" id="selectOther" value="反选">
+			<input type="submit" name="delete_all" id="delete_all" value="全部删除">
+		</div>
+	</div>
+</div>
+<div class="main">
+<table class="stdtable">
+	<thead>
+		<tr>
+			<th width="5%">选择</th>
+			<th width="5%">ID</th>
+			<th width="15%">网名</th>
+			<th>内容</th>
+			<th width="30%">所属信息</th>
+			<th width="10%">日期</th>
+			<th width="10%">管理</th>
+		</tr>
+	</thead>
+	<tbody>
+	<%
+		if @comments.length>0
+			@comments.each do |comment|
+	%>
+		<tr>
+			<td><%= check_box_tag 'comment_ids[]', comment.id, false, :class => 'checker' %></td>
+			<td><%= comment.id %></td>
+			<td><% if !comment.uname.blank? %><%= comment.uname %><% else %>游客<% end %><b>(<%= comment.ip %>)</b></td>
+			<td><%= comment.content %></td>
+			<td style="text-align:left;"><% if comment.topic %><a href="<%= comment.topic.show_url %>" target="_blank"><%= comment.topic.title %></a><% end %></td>
+			<td><%= comment.created_at.strftime("%Y-%m-%d") %></td>
+			<td>
+				<%= link_to "删除", {:action => "destroy", :id => comment, :page => @page}, :confirm => "确定删除？", :method => "delete" %>
+			</td>
+		</tr>
+	<%
+			end
+		else
+	%>
+		<tr>
+			<td colspan="7" style="text-align:left;">&nbsp;还没有内容。</td>
+		</tr>
+	<%
+		end
+	%>
+	</tbody>
+</table>
+<% end %>
+<script type="text/javascript">
+$('.checker').click(function(e){
+	e.stopPropagation();
+});
+$('.stdtable td').click(function(e){
+	if(e.target.tagName != 'A'){
+		e.preventDefault();
+		e.stopPropagation();
+		var _c = $(this).parent().find('.checker');
+		_c.attr('checked', !!!$(_c).attr('checked'));
+	}
+});
+$('#selectAll').click(function(e){
+	e.preventDefault();
+	e.stopPropagation();
+	$('.checker').attr('checked', true);
+});
+$('#selectOther').click(function(e){
+	e.preventDefault();
+	e.stopPropagation();
+	$('.checker').each(function(index, elem){
+		$(elem).attr('checked', !$(elem).attr('checked'));
+	});
+});
+$('#delete_all').click(function(e){
+	e.stopPropagation();
+	if($('input:checked').length == 0){
+		alert("请选择批量处理的ID!");
+		return false;
+	}
+});
+</script>
+</div>

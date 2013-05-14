@@ -20,7 +20,34 @@
 			</div>
 		</div>
 		<div class="comments box">
-			网友评论
+			<h4>网友评论</h4>
+			<% if @comments.length > 0 %>
+			<div class="comment-list">
+				<% @comments.each do |comment| %>
+				<div class="comment-item clearfix">
+					<div class="l comment-ico"><img src="http://i1.mb5u.com/img/h/10.jpg" /></div>
+					<div class="r comment-con">
+						<div class="comment-i"><b><% if !comment.uname.blank? %><%= comment.uname %><% else %>游客<% end %></b><%= comment.ip %> / <%= comment.created_at.strftime("%Y-%m-%d") %></div>
+						<div class="comment-c">
+							<%= simple_format comment.content %>
+						</div>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<div class="comment-pagination">共 1 页/<%= @comments.length %>条评论</div>
+			<% else %>
+			<div class="comment-no">暂时还没人评论! 快来抢沙发啊!</div>
+			<% end %>
+			<div class="comment-new">
+				<div class="comment-tip" id="comment_tip">
+					<p>请在这里输入您要发表的评论信息!</p><p>理智评论,文明上网,共建和谐网络.</p><p>严禁广告、谩骂等不良信息.</p>
+				</div>
+				<%= form_for "comment" do |f| %>
+				<%= f.text_area :content, :value => "" %>
+				<input type="submit" name="submit" value="提 交" />
+				<% end %>
+			</div>
 		</div>
 	</div>
 	<div class="r">
@@ -46,4 +73,18 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+function $(v){return document.getElementById(v);}
 
+$('comment_content').onfocus = function(){
+	$('comment_tip').style.display = 'none';
+};
+$('comment_content').onblur = function(){
+	if($('comment_content').value == ""){
+		$('comment_tip').style.display = '';
+	}
+};
+$('comment_tip').onclick = function(){
+	$('comment_content').focus();
+}
+</script>

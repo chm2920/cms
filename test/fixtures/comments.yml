@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  comment_id: 1
+  uname: MyString
+  ip: MyString
+  content: MyText
+
+two:
+  comment_id: 1
+  uname: MyString
+  ip: MyString
+  content: MyText

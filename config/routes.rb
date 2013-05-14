@@ -65,6 +65,9 @@ Cms::Application.routes.draw do
     
     post "guestbooks/index"
     resources :guestbooks
+    
+    post "comments/index"
+    resources :comments
       
     get "run_logs/index"
     post "run_logs/index"

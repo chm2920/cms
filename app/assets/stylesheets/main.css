@@ -120,7 +120,23 @@ input, option, select, textarea, button {font-size: 12px;}
 .topic-closet p{line-height:24px;}
 .topic-closet p b{}
 
-.comments{margin:10px 0 0;}
+.comments{margin:10px 0 0;padding:20px 26px;}
+.comments h4{padding:0 0 10px 0;height:20px;line-height:20px;border-bottom:1px solid #EEE;font-size:14px;font-weight:bold;}
 
+.comment-list{padding:10px 0 0;}
+.comment-item{padding:10px 0 0;}
+.comment-ico{width:60px;}
+.comment-ico img{width:50px;height:50px;}
+.comment-con{width:600px;}
+.comment-i{height:28px;line-height:28px;color:#999;}
+.comment-i b{margin-right:10px;color:#333;}
+.comment-c{padding:0 0 10px;line-height:20px;border-bottom:1px dotted #EEE;}
+.comment-c p{margin:2px 0;}
+.comment-pagination{line-height:28px;text-align:right;}
+.comment-no{padding:20px 0;line-height:20px;text-align:center;font-size:18px;font-weight:bold;}
+.comment-new{position:relative;border-top:1px solid #EEE;}
+.comment-tip{position:absolute;top:16px;left:8px;line-height:20px;}
+.comment-new textarea{margin:10px 0 0;padding:4px;width:98%;height:80px;line-height:20px;border:1px solid #EEE;font-size:12px;}
+.comment-new input{margin:8px 0 0;display:block;width:80px;height:28px;line-height:28px;text-align:center;border:1px solid #EEE;background:#F8F8F8;}
 
 

@@ -7,6 +7,8 @@ class Topic < ActiveRecord::Base
   
   has_one :topic_addon
   
+  has_many :comments
+  
   def show_url
     urls = []
     catalog = self.catalog
