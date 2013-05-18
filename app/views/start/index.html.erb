@@ -1,4 +1,15 @@
-<div class="section clearfix">
+<div class="section box t-index">
+<ul>
+	<% @new_topics.each_with_index do |topic, i| %>
+	<li><span><%= (topic.created_at + 8.hours).strftime("%Y-%m-%d %H:%M:%S") %></span><i></i>[<a href="<%= topic.catalog.show_url %>"><%= topic.catalog.name %></a>] <a href="<%= topic.show_url %>" target="_blank"><%= topic.title %></a></li>
+	<% if (i + 1) % 5 == 0 %>
+	<li class="blank"></li>
+	<% end %>
+	<% end %>
+</ul>
+<%= will_paginate @new_topics %>
+</div>
+<!--div class="section clearfix">
 	<div class="l ann">
 		<img src="http://www.xiaomi.cn/statics/images/0808/iconSpeaker.jpg" />
 		<div class="ann-con">公告：</div>
@@ -81,13 +92,13 @@
 	</div>
 	<div class="rr box" style="height:300px;">
 	</div>
-</div>
+</div-->
 
 <div class="section friendlinks box">
 	<div class="fl-t">友情链接</div>
 	<p>
-		<% 10.times do %>
-		<a href="#" target="_blank">Text1</a>
+		<% @friendlinks.each do |f| %>
+		<a href="<%= f.link %>" target="_blank"><%= f.title %></a>
 		<% end %>
 	</p>
 </div>

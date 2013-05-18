@@ -3,6 +3,8 @@ Cms::Application.routes.draw do
   match "ajs/(:id).js" => "start#ajs"
   match "gb" => "start#gb"
   
+  match "comments/(:id)" => "comments#create"
+  
   match "admin" => "account#login"
   get "account/main"
   get "account/desktop"

@@ -11,5 +11,5 @@ end
 
 gem 'jquery-rails'
 
-gem 'will_paginate'
+gem 'will_paginate', '~> 3.0'
 gem 'rails_kindeditor', '~> 0.3.14'

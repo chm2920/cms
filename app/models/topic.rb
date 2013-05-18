@@ -19,4 +19,8 @@ class Topic < ActiveRecord::Base
     "/#{urls.reverse.join('/')}/news-" + self.created_at.strftime("%Y%m%d") + "-#{self.id}.html"
   end
   
+  def to_s
+    "<a href=\"#{self.show_url}\">#{self.title}</a>".html_safe
+  end
+  
 end

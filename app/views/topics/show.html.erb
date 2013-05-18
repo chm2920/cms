@@ -1,6 +1,6 @@
 <div class="section clearfix">
 	<div class="topic-path">
-		<a href="/">首页</a>&gt;<a href=""><%= @catalog.name %></a>
+		<%= catalog_show_path @catalog %>
 	</div>
 	<div class="l">
 		<div class="topic-show box">
@@ -15,8 +15,8 @@
 				<%= format_news_content(@topic.topic_addon.content, @mixs) %>
 			</div>
 			<div class="topic-closet">
-				<p><b>上一篇：</b></p>
-				<p><b>下一篇：</b></p>
+				<p><b>上一篇：</b><%= topic_previous(@topic) %></p>
+				<p><b>下一篇：</b><%= topic_next(@topic) %></p>
 			</div>
 		</div>
 		<div class="comments box">
@@ -35,7 +35,11 @@
 				</div>
 				<% end %>
 			</div>
-			<div class="comment-pagination">共 1 页/<%= @comments.length %>条评论</div>
+			<% if @comments.length < 20 %>
+			<div class="comment-pagination">共 <%= @comments.length %> 条评论</div>
+			<% else %>
+			<div class="comment-pagination"><%= will_paginate @comments, :class => "unstyled_pagination" %></div>
+			<% end %>
 			<% else %>
 			<div class="comment-no">暂时还没人评论! 快来抢沙发啊!</div>
 			<% end %>
@@ -43,8 +47,8 @@
 				<div class="comment-tip" id="comment_tip">
 					<p>请在这里输入您要发表的评论信息!</p><p>理智评论,文明上网,共建和谐网络.</p><p>严禁广告、谩骂等不良信息.</p>
 				</div>
-				<%= form_for "comment" do |f| %>
-				<%= f.text_area :content, :value => "" %>
+				<%= form_tag "/comments/#{@topic.id}" do %>
+				<%= text_area_tag :comment_content %>
 				<input type="submit" name="submit" value="提 交" />
 				<% end %>
 			</div>

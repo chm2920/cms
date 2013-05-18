@@ -14,18 +14,6 @@ class TopicsController < ApplicationController
     @sys_setting = SysSetting.find_by_stype("article_mix")
     @mixs = @sys_setting.setting.split("#,")
     
-    @comment = Comment.new
-    
-    case request.method
-    when "POST"
-      @comment.topic = @topic
-      @comment.uname = ""
-      @comment.ip = request.remote_ip
-      @comment.content = params[:comment][:content]
-      @comment.save
-    else
-    end
-    
     @comments = Comment.paginate :page => params[:page], :per_page => 20, :conditions => ["topic_id = ?", @topic.id], :order => "id desc"
     
     @title = @topic.title

@@ -116,9 +116,10 @@ input, option, select, textarea, button {font-size: 12px;}
 .topic-con p{margin:20px 0;}
 .topic-con img{display:block;margin:0 auto;max-width:600px;}
 
-.topic-closet{}
-.topic-closet p{line-height:24px;}
-.topic-closet p b{}
+.topic-closet{padding:40px 0 10px;}
+.topic-closet p{line-height:28px;font-size:14px;}
+.topic-closet p b{margin-right:8px;}
+.topic-closet p a{font-size:14px;}
 
 .comments{margin:10px 0 0;padding:20px 26px;}
 .comments h4{padding:0 0 10px 0;height:20px;line-height:20px;border-bottom:1px solid #EEE;font-size:14px;font-weight:bold;}
@@ -139,4 +140,22 @@ input, option, select, textarea, button {font-size: 12px;}
 .comment-new textarea{margin:10px 0 0;padding:4px;width:98%;height:80px;line-height:20px;border:1px solid #EEE;font-size:12px;}
 .comment-new input{margin:8px 0 0;display:block;width:80px;height:28px;line-height:28px;text-align:center;border:1px solid #EEE;background:#F8F8F8;}
 
+
+.t-index{padding:40px;}
+.t-index li{padding:8px 0;line-height:20px;}
+.t-index li.blank{margin:8px 0;padding:0;line-height:0;border-top:1px dotted #CCC;}
+.t-index li span{float:right;display:inline;font-size:14px;color:#888;}
+.t-index li i{display:inline-block;margin:0 6px 2px 0;width:0;height:0;border:2px solid #000;border-radius:2px;}
+.t-index li a{font-size:14px;}
+
+.guestbook{margin:20px auto;width:100%;}
+.guestbook th{padding:8px 0;line-height:20px;font-weight:bold;font-size:18px;}
+.guestbook td{padding:8px 0;}
+.guestbook td.gb-label{width:30%;text-align:right;}
+.gb-ipt{}
+.gb-ipt input{margin-left:20px;padding:4px 4px;width:300px;line-height:18px;border:1px solid #CCC;}
+.gb-ipt textarea{margin-left:20px;padding:4px 4px;width:400px;height:120px;line-height:20px;border:1px solid #CCC;}
+.gb-sbt input{margin-left:20px;padding:8px 30px;line-height:20px;border:1px solid #CCC;background:#EEE;cursor:pointer;}
+
+.gb-rst{padding:240px 0;line-height:28px;text-align:center;font-size:18px;font-weight:bold;}
 
