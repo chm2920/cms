@@ -55,9 +55,9 @@ task(:get_rss => :environment) do
     end
   end
   
-  l = urls.length
+  l = urls.length.to_s
   urls.each_with_index do |url, index|
-    puts index + "/" + l + " " + url
+    puts index.to_s + "/" + l + " " + url
     import_rss_from_url(url)
   end
   
