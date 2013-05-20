@@ -5,8 +5,7 @@ class CreateCatalogs < ActiveRecord::Migration
       t.integer :sortrank, :default => 0
       t.string :name
       t.string :cdir
-
-      t.timestamps
+      t.string :extra
     end
   end
 end

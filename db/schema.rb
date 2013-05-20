@@ -33,22 +33,21 @@ ActiveRecord::Schema.define(:version => 20130514040817) do
   end
 
   create_table "catalogs", :force => true do |t|
-    t.integer  "parent_id",  :default => 0
-    t.integer  "sortrank",   :default => 0
-    t.string   "name"
-    t.string   "cdir"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.integer "parent_id", :default => 0
+    t.integer "sortrank",  :default => 0
+    t.string  "name"
+    t.string  "cdir"
+    t.string  "extra"
   end
 
   create_table "comments", :force => true do |t|
     t.integer  "topic_id"
-    t.integer  "comment_id"
+    t.integer  "comment_id", :default => 0
     t.string   "uname"
     t.string   "ip"
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "friendlinks", :force => true do |t|

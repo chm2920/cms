@@ -21,9 +21,9 @@
 	</tbody>
 </table>
 <% end %>
-<% if !@feed.nil? %>
+<% if !@items.nil? %>
 <br />
-<% if @feed != "error" %>
+<% if @items != "error" %>
 <%= form_tag :action => "import_rss" do %>
 <table class="stdtable">
 	<thead>
@@ -36,13 +36,13 @@
 	</thead>
 	<tbody>
 	<%
-			@feed[:items].each do |item|
+			@items.each do |item|
 	%>
 		<tr>
-			<td><a href="<%= item[:link] %>" title="<%= item[:description] %>" target="_blank"><%= item[:title] %></a></td>
-			<td><%= (DateTime.parse(item[:pubDate]) + 8.hours).strftime("%Y-%m-%d_%H-%M-%S") %></td>
-			<td><%= item[:source] %></td>
-			<td><%= item[:author] %></td>
+			<td><a href="<%= item.link %>" title="<%= item.description %>" target="_blank"<% if item.is_new == "1" %> style="font-weight:bold;"<% end %>><%= item.title %><% if !item.litpic.blank? %>&nbsp;<b>图</b><% end %></a></td>
+			<td><% if !item.pub_date.nil? %><%= (DateTime.parse(item.pub_date) + 8.hours).strftime("%Y-%m-%d_%H-%M-%S") %><% end %></td>
+			<td><%= item.source %></td>
+			<td><%= item.author %></td>
 		</tr>
 	<%
 			end

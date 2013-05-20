@@ -4,9 +4,9 @@ class Admin::SeaController < Admin::Backend
   def rss
     if !params[:url].nil?
       begin
-        @feed = rss_parser(params[:url])
+        @items = rss_parser(params[:url])
       rescue
-        @feed = "error"
+        @items = "error"
       else
         
       end
@@ -14,13 +14,8 @@ class Admin::SeaController < Admin::Backend
   end
   
   def import_rss
-    feed, @err_titles = import_rss_from_url(params[:url])
-    if feed == "error"
-      @err_urls = []
-      render :action => :auto_result
-    else
-      redirect_to [:admin, :topics]
-    end
+    import_rss_from_url(params[:url])
+    redirect_to [:admin, :topics]
   end
 
   def auto
@@ -39,13 +34,8 @@ class Admin::SeaController < Admin::Backend
           # threads << Thread.new(url) do |u|
             # u = u.to_s
             url = url.to_s
-            feed, err_titles = import_rss_from_url(url)
-            if feed == "error"
-              @err_urls << url
-            end
-            err_titles.each do |t|
-              @err_titles << t
-            end
+            puts "begin --> " + url
+            import_rss_from_url(url)
           # end
         end
         # threads.each{|thr|thr.join}
@@ -57,7 +47,143 @@ class Admin::SeaController < Admin::Backend
   
 private
 
+  def rss_parser(url) 
+    items = []      
+    begin
+      html = BaiduRssItem.get(url)  
+      
+      cdir = ""
+      url.scan(/class=(.*?)&/) do |p|
+        cdir = p[0]
+      end    
+      catalog = Catalog.find_by_cdir(cdir)
+      last_url = ''
+      if !catalog.extra.blank?
+        last_url = catalog.extra
+      end
+      
+      is_new = "1"
+      html.scan(/<item>(.*?)<\/item>/m) do |a|
+        item = a[0].to_s
+        rss_item = BaiduRssItem.new
+        rss_item.extract(item)
+        if rss_item.link == last_url
+          is_new = "0"
+        end
+        rss_item.is_new = is_new
+        items << rss_item
+      end
+    rescue
+      puts 'error - ' + url
+    else
+    end
+    
+    items  
+  end
+  
+  def import_rss_from_url(url)    
+    begin
+      html = BaiduRssItem.get(url)
+      items = []
+      
+      cdir = ""
+      url.scan(/class=(.*?)&/) do |p|
+        cdir = p[0]
+      end    
+      catalog = Catalog.find_by_cdir(cdir)
+      last_url = ''
+      if !catalog.extra.blank?
+        last_url = catalog.extra
+      end
+        
+      File.open(File.expand_path(Rails.root + "log/rss.log", __FILE__), "w+") do |log_file|      
+        log_file.puts "#{Time.now}====>start data."
+        html.scan(/<item>(.*?)<\/item>/m) do |a|
+          item = a[0].to_s
+          rss_item = BaiduRssItem.new
+          rss_item.extract(item)
+          
+          if rss_item.link == last_url
+            break
+          end
+          if !rss_item.description.blank?
+            items << rss_item
+          end
+        end
+        if items.length > 0
+          items.reverse!
+          items.each do |item|
+            log_file.puts item.title
+            item.save(catalog)
+          end
+          catalog.extra = items[items.length - 1].link
+          catalog.save
+        end
+        log_file.puts "#{Time.now}====>end data."
+      end
+    rescue
+      puts 'error - ' + url
+    else
+    end
+  end
+  
+end
+
+
+__END__
+
+
+
   def rss_parser(url)
+    require 'rexml/document'
+    require 'open-uri'
+    html = open(URI.parse(url)).read
+    puts html
+    
+    xml = REXML::Document.new html
+    
+    puts '=='
+    data = {
+      :title    => xml.root.elements['channel/title'].text,
+      :home_url => xml.root.elements['channel/link'].text,
+      :rss_url  => url,
+      :items    => []
+    }
+    xml.elements.each '//item' do |item|
+      puts item
+      new_items = {}
+      item.elements.each do |e|
+        new_items[e.name.gsub(/^dc:(\w)/,"\1").to_sym] = e.text
+      end
+      data[:items] << new_items
+    end
+    data
+  end
+  
+  def rss_parser2(url)    
+    xml = RssItem.extract_xml_item(url)
+    puts xml
+    data = {
+      :title    => xml.xpath('/rss/channel/title').text,
+      :home_url => xml.xpath('/rss/channel/link').text,
+      :rss_url  => url,
+      :items    => []
+    }    
+    
+    xml.xpath('//item').each do |item|
+      new_items = {}
+      rss_item = RssItem.new
+      rss_item.extract(item)
+      new_items[:title] = rss_item.title
+      # item.elements.each do |e|
+        # new_items[e.name.gsub(/^dc:(\w)/,"\1").to_sym] = e.text
+      # end
+      data[:items] << new_items
+    end
+    data
+  end
+
+  def rss_parser2(url)
     require 'rexml/document'
     require 'open-uri'
     xml = REXML::Document.new open(URI.parse(url)).read
@@ -100,6 +226,8 @@ private
     end
     data
   end
+  
+
   
   def import_rss_from_url(url)
     require 'open-uri'
@@ -183,4 +311,5 @@ private
     [feed, err_titles]
   end
   
-end
+
+
