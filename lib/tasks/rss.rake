@@ -56,9 +56,14 @@ task(:get_rss => :environment) do
   end
   
   l = urls.length.to_s
-  urls.each_with_index do |url, index|
-    puts index.to_s + "/" + l + " " + url
-    import_rss_from_url(url)
+  File.open(File.expand_path(Rails.root + "log/rss.log", __FILE__), "a") do |log_file|
+    log_file.puts "#{Time.now}====>start data."
+    urls.each_with_index do |url, index|
+      puts index.to_s + "/" + l + " " + url
+      log_file.puts url
+      import_rss_from_url(url)
+    end
+    log_file.puts "#{Time.now}====>end data."
   end
   
 end 
