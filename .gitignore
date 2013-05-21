@@ -19,4 +19,4 @@
 
 /public/uploads/*
 /db/backup/*
-#/config/database.yml
+/config/database.yml
