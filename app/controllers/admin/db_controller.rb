@@ -86,19 +86,24 @@ class Admin::DbController < Admin::Backend
   def sql
     case request.method
     when "POST"
-      begin
+      # begin
         @sql = params[:x]
         if !@sql.blank?
           @result = []
           sqls = @sql.split(";")
           sqls.each do |sql|
-            @result << ActiveRecord::Base.connection.exec_query(sql).to_hash
+            begin
+              t = ActiveRecord::Base.connection.exec_query(sql).to_hash
+              @result << t
+            rescue
+            else             
+            end
           end
         end
-      rescue
-        @result = "sql error"
-      else
-      end
+      # rescue
+        # @result = "sql error"
+      # else
+      # end
     end
   end
   
